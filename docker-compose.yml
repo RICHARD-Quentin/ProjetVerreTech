@@ -1,0 +1,79 @@
+version: '2'
+
+services:
+
+  store:
+    build: ./store
+    container_name: vt_store
+    volumes:
+      - "./store:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3001:80"
+    # command: npm run start
+    command: npm start
+
+  authentification:
+    build: ./authentification
+    container_name: vt_authentification
+    volumes:
+      - "./authentification:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3002:80"
+    # command: npm run start
+    command: npm start
+
+  catalog:
+    build: ./catalog
+    container_name: vt_catalog
+    volumes:
+      - "./catalog:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3003:80"
+    # command: npm run start
+    command: npm start
+
+  order:
+    build: ./order
+    container_name: vt_order
+    volumes:
+      - "./order:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3004:80"
+    # command: npm run start
+    command: npm start
+
+  payement:
+    build: ./payement
+    container_name: vt_payement
+    volumes:
+      - "./payement:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3005:80"
+    # command: npm run start
+    command: npm start
+
+  stock:
+    build: ./stock
+    container_name: vt_stock
+    volumes:
+      - "./stock:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3006:80"
+    # command: npm run start
+    command: npm start
+
+  users:
+    build: ./users
+    container_name: vt_users
+    volumes:
+      - "./users:/src/app"
+    working_dir: "/src/app"
+    ports:
+      - "3007:80"
+    command: npm start
