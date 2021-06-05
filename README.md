@@ -1,6 +1,7 @@
 # ProjetVerreTech
 
-Cloner le projet 
+Cloner le projet :
+
 git clone https://github.com/RICHARD-Quentin/ProjetVerreTechBack
 
 docker-compose build
