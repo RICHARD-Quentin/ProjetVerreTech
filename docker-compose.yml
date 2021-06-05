@@ -9,7 +9,7 @@ services:
       - "./store:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3001:80"
+      - "3001:3000"
     # command: npm run start
     command: npm start
 
@@ -20,7 +20,7 @@ services:
       - "./authentification:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3002:80"
+      - "3002:3000"
     # command: npm run start
     command: npm start
 
@@ -31,7 +31,7 @@ services:
       - "./catalog:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3003:80"
+      - "3003:3000"
     # command: npm run start
     command: npm start
 
@@ -42,7 +42,7 @@ services:
       - "./order:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3004:80"
+      - "3004:3000"
     # command: npm run start
     command: npm start
 
@@ -53,7 +53,7 @@ services:
       - "./payement:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3005:80"
+      - "3005:3000"
     # command: npm run start
     command: npm start
 
@@ -64,7 +64,7 @@ services:
       - "./stock:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3006:80"
+      - "3006:3000"
     # command: npm run start
     command: npm start
 
@@ -75,5 +75,5 @@ services:
       - "./users:/src/app"
     working_dir: "/src/app"
     ports:
-      - "3007:80"
+      - "3007:3000"
     command: npm start
