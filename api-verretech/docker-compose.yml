@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+    database:
+        container_name: erp-db-verretech
+        build: 
+            context: ./services-docker/mysql/
+            dockerfile: Dockerfile
+        ports:
+        - "3306:3306"
+        networks:
+            - treafik_default
+    api:
+        container_name: api-verretech
+        build:
+            context: ./
+            dockerfile: ./services-docker/nodejs/Dockerfile
+        ports:
+        - "3000:3000"
+        labels:
+        - "traefik.enable=true"  
+        - "traefik.http.routers.api-verretech.rule=Host(`erp-verretech.florianstock.fr`)"
+        - "traefik.http.routers.api-verretech.entrypoints=websecure,web"
+        - "entrypoints.web.http.redirections.entryPoint.scheme=websecure"
+        - "entrypoints.web.http.redirections.entrypoint.permanent=true"     
+        - "traefik.http.routers.api-verretech.tls=true"
+        - "traefik.http.routers.api-verretech.tls.certresolver=myresolver"
+
+        - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=websecure"
+        - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+        - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
+        - "traefik.http.routers.http_catchall.entrypoints=web"
+        - "traefik.http.routers.http_catchall.middlewares=https_redirect"
+       
+        depends_on:
+        - database
+        environment:
+        - DATABASE_HOST=database-verretech
+        volumes:
+        - ./api-verretech
+        networks:
+            - treafik_default
+networks:
+    treafik_default: 
+        external: true
+
+    
+
