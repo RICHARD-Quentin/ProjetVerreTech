@@ -14,7 +14,7 @@ export async function createOrder (req, res)
 
     const now = moment(new Date()),end = moment(Date.parse(req.body.date_retrait))
     var hours = end.diff(now, 'hours');
-    if(hours < 0 && hours < 3)return res.status(400).send('Invalid date_retrait ! The order must be picked up within 3 hours !');
+    if(hours < 3)return res.status(400).send('Invalid date_retrait ! The order must be picked up within 3 hours !');
 
     const transaction = await db.Sequelize.transaction();
 
