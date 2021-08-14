@@ -13,8 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "database": "file:../common/database",
+    "erp-verretech": "file:../common/erp-verretech",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.7",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "uuid": "^8.3.2"
   }
 }
