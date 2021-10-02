@@ -7,6 +7,7 @@ services:
     container_name: vt_store
     volumes:
       - "./store:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3001:3000"
@@ -18,6 +19,7 @@ services:
     container_name: vt_authentification
     volumes:
       - "./authentification:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3002:3000"
@@ -29,6 +31,7 @@ services:
     container_name: vt_catalog
     volumes:
       - "./catalog:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3003:3000"
@@ -40,6 +43,7 @@ services:
     container_name: vt_order
     volumes:
       - "./order:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3004:3000"
@@ -51,6 +55,7 @@ services:
     container_name: vt_payement
     volumes:
       - "./payement:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3005:3000"
@@ -62,6 +67,7 @@ services:
     container_name: vt_stock
     volumes:
       - "./stock:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3006:3000"
@@ -73,6 +79,7 @@ services:
     container_name: vt_users
     volumes:
       - "./users:/src/app"
+      - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
       - "3007:3000"
