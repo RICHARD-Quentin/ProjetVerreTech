@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+import router from './routes.js';
 
 const app = express();
 
