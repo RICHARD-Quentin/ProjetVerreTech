@@ -54,8 +54,5 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-<<<<<<< HEAD
   return Client
-=======
->>>>>>> 2675ca1 (ajout de sequelize + premiere migration + import models depuis db + export pour utilisation dans le projet)
 };

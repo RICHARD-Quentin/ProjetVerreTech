@@ -43,7 +43,7 @@ services:
     container_name: vt_order
     volumes:
       - "./order:/src/app"
-      - "./common:/src/app/common"
+      - "./common:/common"
     working_dir: "/src/app"
     ports:
       - "3004:3000"

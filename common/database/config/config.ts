@@ -1,0 +1,30 @@
+import {Options, Dialect, Sequelize } from 'sequelize'
+
+const mysql:Dialect = "mysql"
+
+export default
+{
+  development :{
+    username: "u552287327_groupeA",
+    password: "FenrirProject2021",
+    database: "u552287327_VerreTechStore",
+    host: "31.220.106.154",
+    dialect: mysql
+    },
+
+  test: {
+    username: "u552287327_groupeA",
+    password: "FenrirProject2021",
+    database: "u552287327_VerreTechStore",
+    host: "31.220.106.154",
+    dialect: mysql
+  },
+
+  production: {
+    username: "u552287327_groupeA",
+    password: "FenrirProject2021",
+    database: "u552287327_VerreTechStore",
+    host: "31.220.106.154",
+    dialect: mysql
+  }
+}
