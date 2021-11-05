@@ -34,6 +34,10 @@ const sequelize = new Sequelize({
     dialect: "mysql"
 });
 
-const models = initModels(sequelize)
+const db = {
+    sequelize,
+    Sequelize,
+    models: initModels(sequelize)
+};
 
-export default models;
+export default db;
