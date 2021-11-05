@@ -14,7 +14,7 @@ export interface clientAttributes {
   telephone_p: number;
   d_crea_compte: Date;
   mail: string;
-  mdp: string;
+  authId: string;
 }
 
 export type clientPk = "id_client";
@@ -30,7 +30,7 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
   telephone_p!: number;
   d_crea_compte!: Date;
   mail!: string;
-  mdp!: string;
+  authId!: string;
 
   // client hasMany adresse via id_client
   adresses!: adresse[];
@@ -111,16 +111,17 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
     },
     d_crea_compte: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true,
+      defaultValue: new Date()
     },
     mail: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    mdp: {
-      type: DataTypes.STRING(15),
-      allowNull: false
-    }
+    authId: {
+       type: DataTypes.STRING(40),
+       allowNull: false
+     }
   }, {
     sequelize,
     tableName: 'client',

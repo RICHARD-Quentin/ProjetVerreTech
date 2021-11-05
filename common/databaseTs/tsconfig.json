@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "../../build/common/databaseTS",
+    "resolveJsonModule": true,
+    "composite": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
