@@ -1,6 +1,6 @@
 export enum PaymentMethod {
-    None = 0,
-    Paypal = 1,
+    None,
+    Paypal,
 }
 
 export type Payment = {

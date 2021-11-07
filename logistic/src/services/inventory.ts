@@ -1,5 +1,27 @@
 import {content,OrderResult,Order,OrderStatus} from '../models/order'
-import {models as db , sequelize} from '../../../common/database'
+import models, {models as db , sequelize} from '../../../common/database'
+
+export async function getOrdersOfClient(id:number)
+{
+  return await db.commande.findAll({where: { id_client: id}})
+}
+
+export async function cancelOrder(id:number)
+{
+  return "Not implemented !"
+}
+
+export async function getOrder(idOrder:number)
+{
+  return await db.commande.findOne({where: { n_commande: idOrder},include : [
+    {model: db.client, as: "client"}
+]})
+}
+
+export async function getAllOrders()
+{
+  return await db.commande.findAll()
+}
 
 export async function CreateOrder(customerOrder:Order,id_client:number,date_retrait:Date, id_boutique:number,orderResult:OrderResult, status:OrderStatus) {
   
@@ -100,7 +122,7 @@ export async function VerifyInventoryList(content: Array<content>, id_boutique:n
             errors.push({message:"Article id do not exist in the database !",article_id:order.code_article})
         }
     })
-    console.log(errors)
+  
     if(errors.length>0)return reject(errors)
    
     const res:OrderResult = {

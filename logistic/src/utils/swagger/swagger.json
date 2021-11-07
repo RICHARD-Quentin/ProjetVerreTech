@@ -1,0 +1,334 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"content": {
+				"properties": {
+					"quantité": {
+						"type": "number",
+						"format": "double"
+					},
+					"code_article": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"quantité",
+					"code_article"
+				],
+				"type": "object"
+			},
+			"verifyList": {
+				"properties": {
+					"content": {
+						"items": {
+							"$ref": "#/components/schemas/content"
+						},
+						"type": "array"
+					},
+					"id_boutique": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"content",
+					"id_boutique"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"commande": {
+				"additionalProperties": false,
+				"type": "object"
+			},
+			"PaymentMethod": {
+				"enum": [
+					0,
+					1
+				],
+				"type": "number"
+			},
+			"Order": {
+				"properties": {
+					"payment": {
+						"properties": {
+							"id_client": {
+								"type": "number",
+								"format": "double"
+							},
+							"params": {
+								"additionalProperties": false,
+								"type": "object"
+							},
+							"method": {
+								"$ref": "#/components/schemas/PaymentMethod"
+							}
+						},
+						"required": [
+							"id_client",
+							"params",
+							"method"
+						],
+						"type": "object"
+					},
+					"contents": {
+						"items": {
+							"$ref": "#/components/schemas/content"
+						},
+						"type": "array"
+					},
+					"date_retrait": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"id_client": {
+						"type": "number",
+						"format": "double"
+					},
+					"id_boutique": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"payment",
+					"contents",
+					"date_retrait",
+					"id_client",
+					"id_boutique"
+				],
+				"type": "object"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "auth",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/Stock/verify": {
+			"post": {
+				"operationId": "Verify",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/verifyList"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/order/cancel/{id}": {
+			"delete": {
+				"operationId": "CancelOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/order": {
+			"get": {
+				"operationId": "GetOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id_boutique": 1,
+											"id_client": 1,
+											"contents": [
+												{
+													"code_article": 2,
+													"quantité": 5
+												},
+												{
+													"code_article": 1,
+													"quantité": 2
+												}
+											],
+											"date_retrait": "2021-11-07T19:57:41.479Z",
+											"payment": {
+												"params": {
+													"payerID": "9T8M2JEDR9P92",
+													"paymentID": "PAYID-MFSWM3Q7PG67674RB873241U",
+													"paymentToken": "EC-45U139152R760821U"
+												},
+												"id_client": 1
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Order"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/order/client/{id}": {
+			"get": {
+				"operationId": "GetOrdersOfClient",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/commande"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/order/{id}": {
+			"get": {
+				"operationId": "GetOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/commande"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	],
+	"tags": [
+		{
+			"name": "Orders",
+			"description": "Operations about orders"
+		}
+	]
+}

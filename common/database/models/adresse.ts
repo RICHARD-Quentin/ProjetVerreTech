@@ -10,6 +10,9 @@ export interface adresseAttributes {
   id_pays: number;
   id_ville: number;
   adresse: string;
+  pays: string;
+  ville: string;
+  code_postal: string;
 }
 
 export type adressePk = "id_adresse";
@@ -22,6 +25,9 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
   id_pays!: number;
   id_ville!: number;
   adresse!: string;
+  pays!: string;
+  ville!: string;
+  code_postal!: string;
 
   // adresse belongsTo client via id_client
   id_client_client!: client;
@@ -73,6 +79,18 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
     },
     adresse: {
       type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    pays: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    ville: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    code_postal: {
+      type: DataTypes.STRING(5),
       allowNull: false
     }
   }, {
