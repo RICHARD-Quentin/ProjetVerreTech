@@ -1,14 +1,44 @@
-import {content,OrderResult,Order,OrderStatus} from '../models/order'
-import {models as db , sequelize} from '../../../common/database'
+import {content,OrderResult,Order, OrderPayment} from '../models/order'
+import models, {models as db , sequelize} from '../../../common/database'
 
-export async function CreateOrder(customerOrder:Order,id_client:number,date_retrait:Date, id_boutique:number,orderResult:OrderResult, status:OrderStatus) {
+export async function getOrdersOfClient(id:number)
+{
+  return await db.commande.findAll({
+    attributes: ['n_commande','montant','date_commande','date_retrait','statut','payment'],
+    where: { id_client: id},
+    include : [
+      {model: db.boutique, as: "boutique"},
+      {model: db.facture, as: "factures"},
+      {model: db.contenu, as: "contenus", include :[{model:db.article,as:"article",attributes: ['intitule_article','prix_achat']}]}
+    ]
+  })
+}
+
+export async function cancelOrder(id:number)
+{
+  return "Not implemented !"
+}
+
+export async function getOrder(idOrder:number)
+{
+  return await db.commande.findOne({where: { n_commande: idOrder},include : [
+    {model: db.client, as: "client"}
+]})
+}
+
+export async function getAllOrders()
+{
+  return await db.commande.findAll()
+}
+
+export async function CreateOrder(customerOrder:Order,id_client:number,date_retrait:Date, id_boutique:number,orderResult:OrderResult, paymentType:OrderPayment) {
   
   //CreateOrder is an BIG SQL Transaction ! ! ! 📝 
-
+  
     try
     {     
       const order = await sequelize.transaction(async(t) => {
-
+       
         orderResult.content.forEach(async order=>{
           await db.stock.update(
             { quantité : order.quantité },
@@ -22,7 +52,8 @@ export async function CreateOrder(customerOrder:Order,id_client:number,date_retr
           montant: orderResult.totalPrice,
           date_commande: new Date(),
           date_retrait: customerOrder.date_retrait,
-          statut: status
+          statut: "Preperation",
+          payment: paymentType == OrderPayment.Shop ? "Shop":"Website"
           },
           {transaction:t})
          
@@ -33,7 +64,8 @@ export async function CreateOrder(customerOrder:Order,id_client:number,date_retr
               quantite: e.quantité}
           }),{transaction:t})
           
-          if(status == OrderStatus.Paid)
+          //Create Invoice if there has been payment
+          if(paymentType == OrderPayment.Website)
           {
             await db.facture.create(
               {
@@ -100,7 +132,7 @@ export async function VerifyInventoryList(content: Array<content>, id_boutique:n
             errors.push({message:"Article id do not exist in the database !",article_id:order.code_article})
         }
     })
-    console.log(errors)
+  
     if(errors.length>0)return reject(errors)
    
     const res:OrderResult = {

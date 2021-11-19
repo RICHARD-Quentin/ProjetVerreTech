@@ -23,6 +23,8 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
   pays!: string;
   ville!: string;
   adresse!: string;
+  pays!: string;
+  ville!: string;
   code_postal!: string;
 
   // adresse belongsTo client via id_client

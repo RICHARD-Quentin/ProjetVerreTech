@@ -10,9 +10,9 @@ export interface clientAttributes {
   nom: string;
   prenom: string;
   date_naissance: string;
-  telephone_f: number;
-  telephone_p: number;
-  d_crea_compte: Date;
+  telephone_f: string;
+  telephone_p: string;
+  d_crea_compte?: Date;
   mail: string;
   authId: string;
 }
@@ -26,9 +26,9 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
   nom!: string;
   prenom!: string;
   date_naissance!: string;
-  telephone_f!: number;
-  telephone_p!: number;
-  d_crea_compte!: Date;
+  telephone_f!: string;
+  telephone_p!: string;
+  d_crea_compte?: Date;
   mail!: string;
   authId!: string;
 
@@ -102,11 +102,11 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
       allowNull: false
     },
     telephone_f: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     telephone_p: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(10),
       allowNull: false
     },
     d_crea_compte: {

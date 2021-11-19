@@ -96,7 +96,7 @@ export const swaggerDocument = {
              "produces": [
                "application/json"
              ],
-         },
+         }
      },
           
     },

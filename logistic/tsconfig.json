@@ -4,10 +4,13 @@
       "esModuleInterop": true,
       "outDir": "dist",
       "target": "es6",
-      "strict": true
+      "strict": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "resolveJsonModule": true
     },
     "include": [
-      "src/**/*"
-
+      "src/**/*",
+      "src/utils/swagger/swagger.json"
     ]
 }
