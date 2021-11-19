@@ -1,9 +1,11 @@
+import { body } from "express-validator"
+
 export const swaggerDocument = {
     openapi: '3.0.1',
     info: {
         version: '1.0.0',
-        title: 'APIs Order',
-        description: 'Micro-service de gestion des commandes.',
+        title: 'APIs Logistic',
+        description: 'Micro-service de gestion logistique (commandes, gestion des stocks...)',
         termsOfService: '',
         contact: {
             name: 'FenrirProject',
@@ -18,7 +20,7 @@ export const swaggerDocument = {
     },
     servers: [
         {
-          url: "http://localhost:3000/order",
+          url: "http://localhost:3001",
         },
     ],
     schemas:{
@@ -47,6 +49,139 @@ export const swaggerDocument = {
               },
             },
           },
+    },
+    paths: {
+      "/order": {
+         "post": {
+            "tags": ["Orders"],           
+            "description": "Verify, Pay, and Create an new order. The stock is updated when request is completed",
+            "operationId": "for the URL",
+            "produces": [
+              "application/json"
+            ],
+            "parameters": [
+                {
+                  "name": "Order Soumission",
+                  "in": "body",
+                  "description": "The params object change with  options payment.",
+                  "required": true,
+                "schema": {
+                  "$ref": "#/definitions/createOrder"
+                  }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Create response",
+                "schema": {
+                   "$ref": "#/definitions/response"
+                }
+              }
+            }
+          },
+          "get":{
+            "tags": ["Orders"],
+              "description": "Get an order with ID",
+              "operationId": "for the URL",
+              "produces": [
+                "application/json"
+              ],
+          }
+      },
+      "/order/{id}": {        
+         "get":{
+           "tags": ["Orders"],
+             "description": "Get an order with ID",
+             "operationId": "for the URL",
+             "produces": [
+               "application/json"
+             ],
+         },
+     },
+          
+    },
+    "definitions": {
+      "createOrder": {
+        "properties": {
+          "id_boutique": {
+            "required":true,
+            "type": "int",
+            "example": 1
+          },
+          "id_client": {
+            "required":true,
+            "type":"schema",
+            "format": "int",
+            "example": 1
+            }
+          ,
+          "date_retrait": {
+            "required":true,
+            "type":"string",
+            "example": "2021-10-03T18:39:04.911Z"
+            }
+          ,
+          "contents": {
+            "required":true,
+            "type":"array",
+            "format": "int64",
+            "example": [{"code_article":1,"quantité":5},{"code_article":2,"quantité":3}]
+          },
+          "payment":{
+            "required":true,
+            "type":"schema",
+            "example": {
+              "method":"Paypal",
+              "id_client": 1,
+              "params": {
+                "payerID":"9T8M2JEDR9P92",
+                "paymentID":"PAYID-MFSWM3Q7PG67674RB873241U",
+                "paymentToken":"EC-45U139152R760821U"
+              }
+            }
+          }
+        }
+      },
+      "response1": {
+          "properties": {
+            "jobID": {
+              "required":true,
+              "type": "string",
+              "example": "23423456543"
+            },
+            "request": {
+              "required":true,
+              "type": "schema",
+              "example": {
+                "eventId":"mathmaticial",
+                "numberRequired": 500
+              }
+            }
+        }
+      },
+      "response": {
+          "properties": {
+              "jobID": {
+                "required": true,
+                "type" : "string",
+                "example" : "12321432423"
+              }
+          }
+      },
+      "delete": {
+          "properties": {
+              "jobID": {
+                "required": true,
+                "type" : "string",
+                "example" : "234344234234"
+              },
+              "status" : {
+                "required": true,
+                "type": "string",
+                "example": "deleted"
+              }
+          }
+      }
     }
     
 }

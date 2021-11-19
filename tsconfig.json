@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "build/",
+    "resolveJsonModule": true,
+    "composite": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "files": [],
+  "exclude": [
+    "node_modules"
+  ],
+    "references": [
+        { "path": "./common" },
+        // include all other sub-projects here
+    ]
+}

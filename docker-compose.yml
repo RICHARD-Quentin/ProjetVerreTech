@@ -15,10 +15,10 @@ services:
     command: npm start
 
   authentification:
-    build: ./authentification
+    build: user
     container_name: vt_authentification
     volumes:
-      - "./authentification:/src/app"
+      - "./user:/src/app"
       - "./common:/src/app/common"
     working_dir: "/src/app"
     ports:
@@ -84,3 +84,6 @@ services:
     ports:
       - "3007:3000"
     command: npm start
+
+volumes:
+  common:

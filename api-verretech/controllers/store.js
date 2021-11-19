@@ -22,15 +22,14 @@ exports.DeleteOrderById = function(req, res) {
 
 exports.PlaceOrderForArticle = function(req, res){
     console.log(req.body.articleId)
-    db.Order.create(
-        {
+    db.Order.create({
         articleId: req.body.articleId,
         quantity: req.body.quantity,
         shipDate: req.body.shipDate,
         status: req.body.status,
         complete: req.body.complete
-        })
-    .then(function () { res.send("successful operation",200) })
+    })
+        .then(function () { res.send("successful operation",200) })
     .catch(err=>res.send({Message:"Invalid order"},400));
 };
 

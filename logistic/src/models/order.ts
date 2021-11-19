@@ -7,9 +7,15 @@ export type OrderResult = {
 }
 
 export enum OrderStatus {
-    "ToPay" = 0,
-    "Paid" = 1,
-    "TookOf" = 2
+    "Preperation" = 0,
+    "BackInStock" = 1,
+    "TookOf" = 2,
+    "Cancelled" = 3
+}
+
+export enum OrderPayment {
+    "Website",
+    "Shop" 
 }
 
 export type Order = {
@@ -17,7 +23,7 @@ export type Order = {
     id_client : number,
     date_retrait : Date,
     contents : Array<content>,
-    payment:{method:PaymentMethod,params:object}
+    payment:{method:PaymentMethod,params:object,id_client : number}
 }
 
 export type content = {

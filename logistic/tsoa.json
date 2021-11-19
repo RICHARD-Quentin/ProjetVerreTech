@@ -1,0 +1,14 @@
+{
+    "entryFile": "src/main.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "spec": {
+      "outputDirectory": "./src/utils/swagger",
+      "specVersion": 3,
+      "tags":  [
+        {
+          "name": "Orders",
+          "description": "Operations about orders"
+        }
+      ]
+    }
+  }

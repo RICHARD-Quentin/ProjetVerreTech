@@ -80,15 +80,15 @@ export function initModels(sequelize: Sequelize) {
   stock.initModel(sequelize);
   ville.initModel(sequelize);
 
-  commentaire.belongsTo(article, { as: "code_article_article", foreignKey: "code_article"});
+  commentaire.belongsTo(article, { as: "article", foreignKey: "code_article"});
   article.hasMany(commentaire, { as: "commentaires", foreignKey: "code_article"});
-  contenu.belongsTo(article, { as: "code_article_article", foreignKey: "code_article"});
+  contenu.belongsTo(article, { as: "article", foreignKey: "code_article"});
   article.hasMany(contenu, { as: "contenus", foreignKey: "code_article"});
-  stock.belongsTo(article, { as: "code_article_article", foreignKey: "code_article"});
+  stock.belongsTo(article, { as: "article", foreignKey: "code_article"});
   article.hasMany(stock, { as: "stocks", foreignKey: "code_article"});
-  commande.belongsTo(boutique, { as: "id_boutique_boutique", foreignKey: "id_boutique"});
+  commande.belongsTo(boutique, { as: "boutique", foreignKey: "id_boutique"});
   boutique.hasMany(commande, { as: "commandes", foreignKey: "id_boutique"});
-  stock.belongsTo(boutique, { as: "id_boutique_boutique", foreignKey: "id_boutique"});
+  stock.belongsTo(boutique, { as: "boutique", foreignKey: "id_boutique"});
   boutique.hasMany(stock, { as: "stocks", foreignKey: "id_boutique"});
   adresse.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
   client.hasMany(adresse, { as: "adresses", foreignKey: "id_client"});
