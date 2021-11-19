@@ -80,6 +80,7 @@ export function initModels(sequelize: Sequelize) {
   stock.initModel(sequelize);
   ville.initModel(sequelize);
 
+
   commentaire.belongsTo(article, { as: "article", foreignKey: "code_article"});
   article.hasMany(commentaire, { as: "commentaires", foreignKey: "code_article"});
   contenu.belongsTo(article, { as: "article", foreignKey: "code_article"});
@@ -108,7 +109,7 @@ export function initModels(sequelize: Sequelize) {
   pays.hasMany(ville, { as: "villes", foreignKey: "id_pays"});
   adresse.belongsTo(ville, { as: "id_ville_ville", foreignKey: "id_ville"});
   ville.hasMany(adresse, { as: "adresses", foreignKey: "id_ville"});
-
+  
   return {
     SequelizeMeta: SequelizeMeta,
     adresse: adresse,
