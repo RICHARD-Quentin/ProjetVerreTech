@@ -52,7 +52,7 @@ class UserController {
                 include: [adresses]
             }]
 
-            const data = await this.service.upsert?.(body, includes)
+            const data = await this.service.upsert?.(req.body, includes)
 
             return res.status(200).json({
                 data
@@ -60,7 +60,7 @@ class UserController {
         } catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors,
             } as ICommonResFailed)
         }
     }

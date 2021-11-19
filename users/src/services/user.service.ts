@@ -9,8 +9,22 @@ export default class UserService implements IService {
         return this.model.create(data)
     }
 
-    async upsert(data: any, includes: { include: any[]; association: any }[]): Promise<any[]> {
-        return this.model.upsert(data)
+    async upsert(data: any, includes: { include: any[]; association: any }[]): Promise<any> {
+
+        return await sequelize.transaction().then(async t => {
+            return await this.model.upsert(data.userData.client, {transaction: t}).then(async res => {
+                const adresses = data.userData.adresses as Array<any>
+                const id_client = res[0].id_client
+                return adresses.forEach(async adresse => {
+                    await db.adresse.create({...adresse, id_client}, {transaction: t})
+                });
+            }).then(() => {
+                return t.commit()
+            }).catch(err => {
+                console.log(err)
+                return t.rollback()
+            })
+        })
     }
 
     async delete(id: number): Promise<number> {
