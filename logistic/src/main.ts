@@ -10,7 +10,7 @@ import SwaggerRouter from './routes/swagger';
 const app = express();
 
 //CORS
-const allowedOrigins = ['http://localhost:3001'];
+const allowedOrigins = ['http://localhost:3001','http://localhost:3000'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins
 };

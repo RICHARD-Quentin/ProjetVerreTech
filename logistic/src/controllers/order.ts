@@ -1,7 +1,7 @@
 import {Request,Response} from "express";
 import {validationResult} from 'express-validator';
 import * as InventoryService from "../services/inventory";
-import { Order,OrderResult, OrderStatus } from "../models/order";
+import { Order,OrderResult, OrderStatus, OrderPayment } from "../models/order";
 import { PaymentMethod} from "../models/payment";
 import Payment  from "../services/payment/payment";
 import { Body, Get, Post, Route, SuccessResponse, Example,Path, Put,Delete,Tags } from "@tsoa/runtime";
@@ -73,7 +73,7 @@ export class OrderController{
                 ////////////////////////////
                 if(PaymentMethod.None == Number(PaymentMethod[paymentMethod]))
                 {
-                    InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderStatus.ToPay).then(orderCreated=>{
+                    InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderPayment.Shop).then(orderCreated=>{
                     return resolve(orderCreated)
                     }).catch(error=>{return reject(error)})
                 }
@@ -85,7 +85,7 @@ export class OrderController{
                 {
                     if(paymentResult == true)
                     {
-                        InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderStatus.Paid).then(orderCreated=>{
+                        InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderPayment.Website).then(orderCreated=>{
                             return resolve(orderCreated)
                         }).catch(error=>{return reject(error)})             
                     }

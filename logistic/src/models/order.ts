@@ -7,10 +7,15 @@ export type OrderResult = {
 }
 
 export enum OrderStatus {
-    "ToPay" = 0,
-    "Paid" = 1,
+    "Preperation" = 0,
+    "BackInStock" = 1,
     "TookOf" = 2,
     "Cancelled" = 3
+}
+
+export enum OrderPayment {
+    "Website",
+    "Shop" 
 }
 
 export type Order = {

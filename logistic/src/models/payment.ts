@@ -14,3 +14,4 @@ export type Paypal = {
     payerID:string,
     amount:number
 }
+
