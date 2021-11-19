@@ -10,27 +10,28 @@ export interface clientAttributes {
   nom: string;
   prenom: string;
   date_naissance: string;
-  telephone_f: string;
-  telephone_p: string;
-  d_crea_compte?: Date;
+  telephone_f: number;
+  telephone_p: number;
+  d_crea_compte: Date;
   mail: string;
-  authId: string;
+  mdp: string;
 }
 
 export type clientPk = "id_client";
 export type clientId = client[clientPk];
-export type clientCreationAttributes = Optional<clientAttributes, clientPk>;
+export type clientOptionalAttributes = "id_client";
+export type clientCreationAttributes = Optional<clientAttributes, clientOptionalAttributes>;
 
 export class client extends Model<clientAttributes, clientCreationAttributes> implements clientAttributes {
   id_client!: number;
   nom!: string;
   prenom!: string;
   date_naissance!: string;
-  telephone_f!: string;
-  telephone_p!: string;
-  d_crea_compte?: Date;
+  telephone_f!: number;
+  telephone_p!: number;
+  d_crea_compte!: Date;
   mail!: string;
-  authId!: string;
+  mdp!: string;
 
   // client hasMany adresse via id_client
   adresses!: adresse[];
@@ -102,26 +103,25 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
       allowNull: false
     },
     telephone_f: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     telephone_p: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     d_crea_compte: {
       type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: new Date()
+      allowNull: false
     },
     mail: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    authId: {
-       type: DataTypes.STRING(40),
-       allowNull: false
-     }
+    mdp: {
+      type: DataTypes.STRING(15),
+      allowNull: false
+    }
   }, {
     sequelize,
     tableName: 'client',

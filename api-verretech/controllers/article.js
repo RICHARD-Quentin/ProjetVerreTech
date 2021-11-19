@@ -31,14 +31,13 @@ exports.updateArticle = function (req, res) {
         })
 
         .catch(err => {
-            db.Article.create(
-                {
-                    id: req.param('id'),
-                    name: req.body.name,
-                    status: req.body.status,
-                    photoUrls: req.body.photoUrls,
-                    categoryid: req.body.categoryid
-                })
+            db.Article.create({
+                id: req.param('id'),
+                name: req.body.name,
+                status: req.body.status,
+                photoUrls: req.body.photoUrls,
+                categoryid: req.body.categoryid
+            })
                 .then(function () { res.send("successful operation", 200) })
                 .catch(err => res.send("Invalid user supplied" + err, 400))
         })
@@ -60,9 +59,9 @@ exports.AddNewArticleToTheStore = async(req, res) =>{
         name: req.body.name,
         status: req.body.status,
         photoUrls: req.body.photoUrls,
-        categoryid: req.body.category_id  
-      })
-.then(function (){ res.send("successful operation",200)})
+        categoryid: req.body.category_id
+    })
+        .then(function (){ res.send("successful operation",200)})
 .catch(err=>res.send("Invalid user supplied",400))
         
 };

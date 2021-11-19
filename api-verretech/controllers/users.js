@@ -44,15 +44,14 @@ exports.updateUser = function(req, res) {
 
 exports.createUser = function(req, res) {
     console.log(req.body)
-    db.User.create(
-        {
+    db.User.create({
         username: req.body.username,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: HashPwd(req.body.password),
         phone: req.body.phone,
-        userStatus:req.body.userStatus
+        userStatus: req.body.userStatus
     }).then(result => {
         return res.send("successful operation",200) 
     }).catch(err=>res.send("Invalid user supplied"+err,400));

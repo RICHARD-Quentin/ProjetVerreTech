@@ -1,7 +1,7 @@
 FROM node:latest
 
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /index
+WORKDIR /index
 
 COPY package*.json ./
 COPY . .
@@ -10,5 +10,5 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD [ "node", "app.js" ]
-#RUN /app/start.sh
+CMD [ "node", "index.js" ]
+#RUN /index/start.sh
