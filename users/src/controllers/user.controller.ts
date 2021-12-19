@@ -41,16 +41,33 @@ class UserController {
         }
     }
 
+    async findByAuthId(req: Request, res: Response): Promise<Response> {
+        try{
+            const include = db.adresse
+
+            const client = await this.service.findOne({authId: req.params.id})
+            const adresses = await client.getAdresses()
+            return res.status(200).json({
+                client,
+                adresses
+            })
+        } catch (err: any) {
+            return res.status(402).json({
+                message: err.name,
+                validations: err.message,
+            } as ICommonResFailed)
+        }
+    }
+
     async upsert(req: Request, res: Response): Promise<Response>
     {
         try {
             const body = req.body.client
             const adresses = req.body.adresses
 
-            const includes = [{
-                association: db.adresse,
-                include: [adresses]
-            }]
+            const includes = {
+                include: db.adresse
+            }
 
             const data = await this.service.upsert?.(req.body, includes)
 
@@ -60,7 +77,7 @@ class UserController {
         } catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: err.errors,
+                validations: err.message,
             } as ICommonResFailed)
         }
     }
@@ -100,7 +117,7 @@ class UserController {
         catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors,
             } as ICommonResFailed)
         }
     }

@@ -23,8 +23,6 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
   pays!: string;
   ville!: string;
   adresse!: string;
-  pays!: string;
-  ville!: string;
   code_postal!: string;
 
   // adresse belongsTo client via id_client
@@ -89,24 +87,10 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
         ]
       },
       {
-        name: "id_pays",
-        using: "BTREE",
-        fields: [
-          { name: "id_pays" },
-        ]
-      },
-      {
         name: "id_client",
         using: "BTREE",
         fields: [
           { name: "id_client" },
-        ]
-      },
-      {
-        name: "id_ville",
-        using: "BTREE",
-        fields: [
-          { name: "id_ville" },
         ]
       },
     ]

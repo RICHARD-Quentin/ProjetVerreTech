@@ -9,7 +9,7 @@ export default class AdresseService implements IService {
         return this.model.create(data)
     }
 
-    async upsert(data: any, includes: { include: any[]; association: any }[]): Promise<any[]> {
+    async upsert(data: any, includes: any): Promise<void | any[]> {
         return this.model.upsert(data)
     }
 
@@ -29,8 +29,8 @@ export default class AdresseService implements IService {
         return this.model.findByPk(id);
     }
 
-    async findOne(parameters?: any): Promise<any> {
-        return this.model.findOne(parameters);
+    async findOne(parameters?: any, include?: any): Promise<any> {
+        return this.model.findOne({where: parameters, include: include});
     }
 
     async update(id: number, data?: any): Promise<any> {
