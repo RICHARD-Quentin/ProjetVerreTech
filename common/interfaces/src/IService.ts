@@ -5,7 +5,7 @@ export default interface IService {
 
     findAndCount(parameters?: any): Promise<{ rows: any[]; count: number }>;
 
-    findOne(parameters?: any): Promise<any[]>;
+    findOne(parameters?: any, include?: any): Promise<any>;
 
     findById(id: number): Promise<undefined>;
 
@@ -15,5 +15,5 @@ export default interface IService {
 
     delete(id: number): void;
 
-    upsert(data: any, includes: { include: any[]; association: any }[]): Promise<any[]>
+    upsert(data: any, includes: any): Promise<void | any[]>
 }

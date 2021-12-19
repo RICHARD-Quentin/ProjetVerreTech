@@ -46,7 +46,7 @@ class AbstractService {
     findOne(parameters) {
         return __awaiter(this, void 0, void 0, function* () {
             // @ts-ignore
-            return yield this.repository.findOne(parameters);
+            return yield this.repository.findOne(parameters, includes);
         });
     }
     update(id, data) {
