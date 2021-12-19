@@ -1,41 +1,41 @@
 import models, {models as db , sequelize} from '../../../common/database'
+import { Shop } from '../models/Shop'
 
 export default class 
 {
-    public async GetShops(request: any)
+    public async GetShops()
     {          
         return await models.boutique.findAll()         
     }
 
-    public async GetShop(request: any)
+    public async GetShop(id: number)
     {          
-        return await models.boutique.findOne({where : {id_boutique : request.params.id}})         
+        return await models.boutique.findOne({where : {id_boutique : id.toString()}})         
     }
 
-    public async CreateShop(request:any)
+    public async CreateShop(shop:Shop)
     {
-        console.log(request.enseigne)
         return await models.boutique.create({
-                intitule: request.intitule,
-                enseigne: request.enseigne,
-                adresse_magasin : request.adresse_magasin               
+                intitule: shop.intitule,
+                enseigne: shop.enseigne,
+                adresse_magasin : shop.adresse_magasin               
         })         
     }
 
-    public async UpdateShop(request:any)
-    {
+    public async UpdateShop(shop:Shop, id : number)
+    {  
         return await models.boutique.update({
-            intitule: request.intitule,
-            enseigne: request.enseigne,
-            adresse_magasin : request.adress_magasin               
-        },{where : {id_boutique: request.id_boutique}})     
+            intitule: shop.intitule,
+            enseigne: shop.enseigne,
+            adresse_magasin : shop.adresse_magasin               
+        },{where : {id_boutique: id.toString()}})     
     }
 
-    public async RemoveShop(request: any)
+    public async RemoveShop(id: number)
     {
         const deletingInCascade = await sequelize.transaction(async(t) => {
-            await models.stock.destroy({where : {id_boutique : request.params.id},transaction:t })
-            await models.boutique.destroy({ where : {id_boutique :request.params.id},transaction:t })
+            await models.stock.destroy({where : {id_boutique : id},transaction:t })
+            await models.boutique.destroy({ where : {id_boutique :id},transaction:t })
         })
         return deletingInCascade
     }
