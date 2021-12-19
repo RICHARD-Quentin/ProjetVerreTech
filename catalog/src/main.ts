@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 
 //import * as order from './services/orderExceeded.js';
-
-import CatalogRouter from './routes/catalog'
+import SwaggerRouter from './routes/swagger'
+import ArticleRouter from './routes/article'
+import ShopRouter from './routes/shop'
 
 const app = express();
 
@@ -16,7 +17,9 @@ app.use(cors(options));
 
 app.use(express.json())
 
-app.use(CatalogRouter)
+app.use(ArticleRouter)
+app.use(ShopRouter)
+app.use(SwaggerRouter)
 
 app.listen(3002, () => {
     console.log('Server app listening on port ' + 3002);

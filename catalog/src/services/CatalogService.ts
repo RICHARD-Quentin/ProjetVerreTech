@@ -1,31 +1,34 @@
 import models, {models as db , sequelize} from '../../../common/database'
+import { Article } from '../models/Article'
 
 export default class 
 {
 
-    public async CreateArticle(request:any)
+    public async CreateArticle(article:Article)
     {
         return await models.article.create({
-                intitule_article: request.intitule_article,
-                dimension_1: request.dimension_1,
-                dimension_2: request.dimension_2,
-                dimension_3: request.dimension_3,
-                couleur: request.couleur,
-                prix_achat: request.prix_achat,
-                commandable: request.commandable,
-                image: request.image,
-                note_moyenne: request.note_moyenne,
-                description: request.description    
+                intitule_article: article.intitule_article,
+                dimension_1: article.dimension_1,
+                dimension_2: article.dimension_2,
+                dimension_3: article.dimension_3,
+                couleur: article.couleur,
+                prix_achat: article.prix_achat,
+                commandable: article.commandable,
+                image: article.image,
+                note_moyenne: article.note_moyenne,
+                description: article.description    
         })         
     }
 
     
-    public async GetArticles(request: any)
+    public async GetArticles(idOfShop: Number)
     {
-        if(request.query.id_boutique != null)
+        console.log(idOfShop)
+
+        if(idOfShop != null)
         {
             
-            return await models.stock.findAll({attributes: ['quantité','no_stock'],where: { id_boutique : request.query.id_boutique}, include : [
+            return await models.stock.findAll({attributes: ['quantité','no_stock'],where: { id_boutique : idOfShop.toString()}, include : [
                 {model: db.article, as: "article", required: false}
             ]})
         }
@@ -37,36 +40,37 @@ export default class
         
     }
 
-    public async GetArticle(request: any)
+    public async GetArticle(id: Number, shopId? : Number)
     {
-        if(request.query.id_boutique != null)
+        if(shopId != null)
         {
-            return await models.stock.findOne({where: {id_boutique : request.query.id_boutique, code_article : request.params.id},include : [
+            return await models.stock.findOne({where: {id_boutique : shopId.toString(), code_article : id.toString()},include : [
                 {model: db.article, as: "article"}
               ]})
         }
         else
         {
-            return await models.article.findOne({where : {code_article : request.query.id}})
+            return await models.article.findOne({where : {code_article : id.toString()}})
         }
        
     }
 
-    public async UpdateArticle(request: any)
+    public async UpdateArticle(article: Article, id :number)
     {
-        const res = await models.article.update({
-            intitule_article: request.intitule_article,
-            dimension_1: request.dimension_1,
-            dimension_2: request.dimension_2,
-            dimension_3: request.dimension_3,
-            couleur: request.couleur,
-            prix_achat: request.prix_achat,
-            commandable: request.commandable,
-            image: request.image,
-            note_moyenne: request.note_moyenne,
-            description: request.description    
-        },{where: { code_article : request.code_article }, returning : true})
-       return res
+
+        return await models.article.update({
+            intitule_article: article.intitule_article,
+            dimension_1: article.dimension_1,
+            dimension_2: article.dimension_2,
+            dimension_3: article.dimension_3,
+            couleur: article.couleur,
+            prix_achat: article.prix_achat,
+            commandable: article.commandable,
+            image: article.image,
+            note_moyenne: article.note_moyenne,
+            description: article.description    
+        },{where: { code_article : id.toString() }})
+
     }
 
     public async RemoveArticle(request: any)
@@ -83,13 +87,12 @@ export default class
     // Not recommended ! 
     public async RemoveAllArticles()
     {
-        const deletingInCascade = await sequelize.transaction(async(t) => {
+        return await sequelize.transaction(async(t) => {
             await models.stock.truncate({where : {},transaction:t })
             await models.contenu.truncate({where : {},transaction:t })
             await models.commentaire.truncate({where : {},transaction:t })
             await models.article.truncate({ where : {},transaction:t })
-        })
-        return deletingInCascade
+        })      
     }
     
     

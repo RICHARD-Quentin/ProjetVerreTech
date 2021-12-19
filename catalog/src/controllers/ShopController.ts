@@ -1,87 +1,43 @@
 import { Request, Response } from "express";
 import {validationResult} from 'express-validator';
+import { Body, Delete, Get, Path, Post, Put, Route, Tags } from "tsoa";
+import { Shop } from "../models/Shop";
 import ShopService from "../services/ShopService";
 
 const shopService = new ShopService()
 
-export default class
+@Route("shop")
+@Tags("shops")
+export  class ShopController
 {
 
-    public async CreateShop(request: Request, response:Response)
+    @Post()
+    public async CreateShop(@Body() shop: Shop) : Promise<any> 
     {
-        if(validationResult(request).array().length > 0)
-        {
-            return response.status(400).send({sucess:false,message:validationResult(request).array()})
-        }
-        else
-        {
-            const res = await shopService.CreateShop(request.body)
-            
-            if(res != null)
-            {
-                return response.status(200).send(res)
-            }
-            else
-            {
-                return response.sendStatus(400)
-            }
-        }
-    }
-        
-
-    public async UpdateShop(request: Request, response:Response)
-    {
-        if(validationResult(request).array().length > 0)
-        {
-            return response.status(400).send({sucess:false,message:validationResult(request).array()})
-        }
-        else
-        {
-            const res = await shopService.UpdateShop(request.body)
-
-            if( res == 1 )
-            {
-                return response.status(200).send(`Shop ${request.body.id_boutique} has been updated !`)
-            }
-            else
-            {
-                return response.sendStatus(400)
-            }
-        }
+        return await shopService.CreateShop(shop)       
     }
 
-    public async GetShop(request: Request, response:Response)
+    @Put('{id}')
+    public async UpdateShop(@Body() shop: Shop ,@Path() id: number): Promise<any> 
     {
-        const res = await shopService.GetShop(request)
-        if(res != null){
-            return response.status(200).send(res)
-        }else{
-            return response.sendStatus(400)
-        }
-        
+        return await shopService.UpdateShop(shop,id)       
     }
 
-    public async GetShops(request: Request, response:Response)
+    @Get('{id}')
+    public async GetShop(@Path() id :number): Promise<any> 
     {
-        const res = await shopService.GetShops(request)
-        if(res != null){
-            return response.status(200).send(res)
-        }else{
-            return response.sendStatus(400)
-        }
+        return await shopService.GetShop(id)       
     }
 
-    public async RemoveShop(request: Request, response:Response)
+    @Get()
+    public async GetShops() : Promise<any> 
     {
-        const res = await shopService.RemoveShop(request)
-        console.log(res)
-        try{
-            await shopService.RemoveShop(request)
-            return response.status(200).send(`Shop ${request.params.id} has been deleted !`)
-        }
-        catch(err){
-            return response.status(400).send(err)
-        }   
-   
+        return await shopService.GetShops()
+    }
+
+    @Delete('{id}')
+    public async RemoveShop(@Path() id :number): Promise<any> 
+    {
+        return await shopService.RemoveShop(id)
     }
 }
