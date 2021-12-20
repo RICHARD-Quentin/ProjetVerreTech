@@ -45,12 +45,14 @@ export default class
         if(shopId != null)
         {
             return await models.stock.findOne({where: {id_boutique : shopId.toString(), code_article : id.toString()},include : [
-                {model: db.article, as: "article"}
+                {model: db.article, as: "article"},{model: db.commentaire, as: "commentaires"}
               ]})
         }
         else
         {
-            return await models.article.findOne({where : {code_article : id.toString()}})
+            return await models.article.findOne({where : {code_article : id.toString()},include : [
+                {model: db.commentaire, as: "commentaires"}
+              ]})
         }
        
     }

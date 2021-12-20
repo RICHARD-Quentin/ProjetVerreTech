@@ -5,6 +5,7 @@ import cors from 'cors';
 import SwaggerRouter from './routes/swagger'
 import ArticleRouter from './routes/article'
 import ShopRouter from './routes/shop'
+import CommentRouter from './routes/comment'
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json())
 
 app.use(ArticleRouter)
 app.use(ShopRouter)
+app.use(CommentRouter)
 app.use(SwaggerRouter)
 
 app.listen(3002, () => {
