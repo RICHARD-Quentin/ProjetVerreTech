@@ -79,6 +79,37 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Comment": {
+				"properties": {
+					"code_article": {
+						"type": "number",
+						"format": "double"
+					},
+					"id_client": {
+						"type": "number",
+						"format": "double"
+					},
+					"commentaire": {
+						"type": "string"
+					},
+					"date": {
+						"type": "string"
+					},
+					"note_client": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"code_article",
+					"id_client",
+					"commentaire",
+					"date",
+					"note_client"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -419,6 +450,150 @@
 					}
 				]
 			}
+		},
+		"/comment/{id}": {
+			"get": {
+				"operationId": "GetComment",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"comments"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"comments"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Comment"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"comments"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/comment": {
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"comments"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateComment",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"comments"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Comment"
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"servers": [
@@ -434,6 +609,10 @@
 		{
 			"name": "shops",
 			"description": "Operations about shops"
+		},
+		{
+			"name": "comments",
+			"description": "Operations about comments"
 		}
 	]
 }

@@ -12,6 +12,10 @@
         {
           "name": "shops",
           "description": "Operations about shops"
+        },
+        {
+          "name": "comments",
+          "description": "Operations about comments"
         }
       ]
     }
