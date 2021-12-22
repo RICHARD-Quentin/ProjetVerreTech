@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "interfaces": "file:../common/interfaces",
+    "middleware": "file:../common/middleware",
     "multer": "^1.4.3",
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.13",
