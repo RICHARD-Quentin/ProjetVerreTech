@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+      "rootDir": ".",
+      "outDir": "../build/common/structures",
+      "resolveJsonModule": true,
+      "composite": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+    "references": [
+      { "path": "./databaseTs" },
+      { "path": "./template" },
+      { "path": "./interfaces" }
+    ]
+}

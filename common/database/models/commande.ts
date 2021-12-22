@@ -12,7 +12,8 @@ export interface commandeAttributes {
   montant: number;
   date_commande: Date;
   date_retrait: Date;
-  statut: number;
+  statut: 'Ready' | 'Preperation' | 'BackInStock' | 'TookOf' | 'Cancelled';
+  payment: 'Website' | 'Shop';
 }
 
 export type commandePk = "n_commande";
@@ -26,7 +27,8 @@ export class commande extends Model<commandeAttributes, commandeCreationAttribut
   montant!: number;
   date_commande!: Date;
   date_retrait!: Date;
-  statut!: number;
+  statut!: 'Ready' | 'Preperation' | 'BackInStock' | 'TookOf' | 'Cancelled';
+  payment!: 'Website' | 'Shop';
 
   // commande belongsTo boutique via id_boutique
   id_boutique_boutique!: boutique;
@@ -100,7 +102,11 @@ export class commande extends Model<commandeAttributes, commandeCreationAttribut
       allowNull: false
     },
     statut: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM('Ready','Preperation','BackInStock','TookOf','Cancelled'),
+      allowNull: false
+    },
+    payment: {
+      type: DataTypes.ENUM('Website','Shop'),
       allowNull: false
     }
   }, {

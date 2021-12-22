@@ -1,9 +1,9 @@
 FROM node
 
-# Create app directory
-WORKDIR /usr/src/app
+# Create index directory
+WORKDIR /usr/src/index
 
-# Install app dependencies
+# Install index dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
@@ -13,7 +13,7 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
-# Bundle app source
+# Bundle index source
 COPY . .
 
 EXPOSE 3004
