@@ -12,7 +12,7 @@ export interface commandeAttributes {
   montant: number;
   date_commande: Date;
   date_retrait: Date;
-  statut: 'Ready' |'Preperation' | 'BackInStock' | 'TookOf' | 'Cancelled';
+  statut: 'Ready' | 'Preperation' | 'BackInStock' | 'TookOf' | 'Cancelled';
   payment: 'Website' | 'Shop';
 }
 
@@ -102,11 +102,11 @@ export class commande extends Model<commandeAttributes, commandeCreationAttribut
       allowNull: false
     },
     statut: {
-      type: DataTypes.ENUM('Preperation','BackInStock','TookOf','Cancelled'),
+      type: DataTypes.ENUM('Ready','Preperation','BackInStock','TookOf','Cancelled'),
       allowNull: false
     },
     payment: {
-      type: DataTypes.ENUM('website','shop'),
+      type: DataTypes.ENUM('Website','Shop'),
       allowNull: false
     }
   }, {

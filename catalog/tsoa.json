@@ -1,0 +1,22 @@
+{
+    "entryFile": "src/main.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "spec": {
+      "outputDirectory": "./src/utils/swagger",
+      "specVersion": 3,
+      "tags":  [
+        {
+          "name": "articles",
+          "description": "Operations about articles"
+        },
+        {
+          "name": "shops",
+          "description": "Operations about shops"
+        },
+        {
+          "name": "comments",
+          "description": "Operations about comments"
+        }
+      ]
+    }
+  }

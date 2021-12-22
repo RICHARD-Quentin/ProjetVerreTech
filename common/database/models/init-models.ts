@@ -80,6 +80,7 @@ export function initModels(sequelize: Sequelize) {
   stock.initModel(sequelize);
   ville.initModel(sequelize);
 
+
   commentaire.belongsTo(article, { as: "article", foreignKey: "code_article"});
   article.hasMany(commentaire, { as: "commentaires", foreignKey: "code_article"});
   contenu.belongsTo(article, { as: "article", foreignKey: "code_article"});
@@ -90,13 +91,13 @@ export function initModels(sequelize: Sequelize) {
   boutique.hasMany(commande, { as: "commandes", foreignKey: "id_boutique"});
   stock.belongsTo(boutique, { as: "boutique", foreignKey: "id_boutique"});
   boutique.hasMany(stock, { as: "stocks", foreignKey: "id_boutique"});
-  adresse.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
+  adresse.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(adresse, { as: "adresses", foreignKey: "id_client"});
-  commande.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
+  commande.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(commande, { as: "commandes", foreignKey: "id_client"});
-  commentaire.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
+  commentaire.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(commentaire, { as: "commentaires", foreignKey: "id_client"});
-  facture.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
+  facture.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(facture, { as: "factures", foreignKey: "id_client"});
   contenu.belongsTo(commande, { as: "n_commande_commande", foreignKey: "n_commande"});
   commande.hasMany(contenu, { as: "contenus", foreignKey: "n_commande"});
@@ -108,7 +109,7 @@ export function initModels(sequelize: Sequelize) {
   pays.hasMany(ville, { as: "villes", foreignKey: "id_pays"});
   adresse.belongsTo(ville, { as: "id_ville_ville", foreignKey: "id_ville"});
   ville.hasMany(adresse, { as: "adresses", foreignKey: "id_ville"});
-
+  
   return {
     SequelizeMeta: SequelizeMeta,
     adresse: adresse,
