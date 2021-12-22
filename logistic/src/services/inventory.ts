@@ -42,6 +42,8 @@ export async function CreateOrder(customerOrder:Order,id_client:number,date_retr
         orderResult.content.forEach(async order=>{
           await db.stock.update(
             { quantité : order.quantité },
+            
+
             { where : { code_article : order.code_article, id_boutique : id_boutique },
             transaction:t })
           })
