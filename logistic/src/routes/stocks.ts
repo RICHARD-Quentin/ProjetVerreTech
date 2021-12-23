@@ -7,7 +7,10 @@ const router = express.Router();
 
 const stockController = new StockController()
 
-router.route('/stock/verify').post(function(request: any, response: any, next: any) {
+const baseUrl = '/logistic'
+
+
+router.route(`${baseUrl}/stock/verify`).post(function(request: any, response: any, next: any) {
     stockController.verify(request.body).then((result: any)=>{
         return response.status(200).send(result);
     }).catch((error:any)=> {console.log(error) ;return response.status(400).send(error)})
