@@ -23,8 +23,6 @@ export default class
     
     public async GetArticles(idOfShop: Number)
     {
-        console.log(idOfShop)
-
         if(idOfShop != null)
         {
             
