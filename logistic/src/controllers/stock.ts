@@ -3,7 +3,7 @@ import { stock } from "../../../common/database/models/stock";
 import { content, OrderResult as ListStockResult } from "../models/order";
 import * as InventoryService from "../services/inventory";
 import * as stocks from "../services/stockService";
-
+import {Stock} from "../models/stock"
 export interface ContentList {
     content : Array<content>,
     id_boutique: number
@@ -29,12 +29,12 @@ export class StockController
     }
 
     @Put()
-    public async modifyStock(@Body() stock:stock): Promise<any> {
+    public async modifyStock(@Body() stock:Stock): Promise<any> {
         return await stocks.ModifyStock(stock)
     }
 
     @Post()
-    public async addStock(@Body() stock:stock): Promise<any> {
+    public async addStock(@Body() stock:Stock): Promise<any> {
         return await stocks.AddStock(stock)
     }
 

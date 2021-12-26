@@ -23,7 +23,7 @@
 				],
 				"type": "object"
 			},
-			"verifyList": {
+			"ContentList": {
 				"properties": {
 					"content": {
 						"items": {
@@ -43,8 +43,30 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"commande": {
-				"additionalProperties": false,
+			"Stock": {
+				"properties": {
+					"no_stock": {
+						"type": "number",
+						"format": "double"
+					},
+					"quantité": {
+						"type": "number",
+						"format": "double"
+					},
+					"id_boutique": {
+						"type": "number",
+						"format": "double"
+					},
+					"code_article": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"quantité",
+					"id_boutique",
+					"code_article"
+				],
 				"type": "object"
 			},
 			"PaymentMethod": {
@@ -118,7 +140,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/Stock/verify": {
+		"/stock/verify": {
 			"post": {
 				"operationId": "Verify",
 				"responses": {
@@ -131,6 +153,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Stocks"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -138,11 +163,261 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/verifyList"
+								"$ref": "#/components/schemas/ContentList"
 							}
 						}
 					}
 				}
+			}
+		},
+		"/stock/shop/{id}": {
+			"get": {
+				"operationId": "GetStockofShop",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "RemoveShopStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/stock/article/{id}": {
+			"get": {
+				"operationId": "GetStockofShopWithArticleID",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "RemoveArticleStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/stock": {
+			"put": {
+				"operationId": "ModifyStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Stock"
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "AddStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Stock"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAllStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/stock/{id}": {
+			"delete": {
+				"operationId": "RemoveLineOfStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetWithId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stocks"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/order/cancel/{id}": {
@@ -219,7 +494,7 @@
 													"quantité": 2
 												}
 											],
-											"date_retrait": "2021-11-07T19:57:41.479Z",
+											"date_retrait": "2021-12-26T16:50:08.586Z",
 											"payment": {
 												"params": {
 													"payerID": "9T8M2JEDR9P92",
@@ -260,12 +535,7 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/commande"
-									},
-									"type": "array"
-								}
+								"schema": {}
 							}
 						}
 					}
@@ -295,9 +565,7 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/commande"
-								}
+								"schema": {}
 							}
 						}
 					}
