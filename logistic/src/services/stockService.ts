@@ -1,5 +1,5 @@
 import models, {models as db , sequelize} from '../../../common/database'
-import { stock } from '../../../common/database/models/stock'
+import {Stock}  from '../models/stock'
 
 export async function GetStockOFShop(id:number)
 {
@@ -11,12 +11,12 @@ export async function GetStockWithArticleId(id:number)
     return await db.stock.findAll({where:{code_article:id}, include : [ {model: db.article, as: "article"},{model: db.boutique, as: "boutique"}]})
 }
 
-export async function ModifyStock(stock:stock)
+export async function ModifyStock(stock:Stock)
 {
     return await db.stock.upsert(stock)
 }
 
-export async function AddStock(stock:stock)
+export async function AddStock(stock:Stock)
 {
     return await db.stock.create(stock)
 }
