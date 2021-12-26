@@ -4,6 +4,7 @@
       "esModuleInterop": true,
       "outDir": "dist",
       "target": "es6",
+      "noImplicitAny": false,
       "strict": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,

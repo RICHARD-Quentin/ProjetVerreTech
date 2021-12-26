@@ -1,6 +1,5 @@
 import {OrderController} from '../controllers/order';
 import express from 'express';
-import {validationResult} from 'express-validator';
 import { checkSchema } from 'express-validator';
 import {OrderSchema,Order} from '../models/order'
 import {SendResponse} from '../../../common/controllers/response'

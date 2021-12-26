@@ -1,8 +1,6 @@
 import express from 'express';
-
+import models, {models as db , sequelize} from '../../common/database'
 import cors from 'cors';
-//import * as order from './services/orderExceeded.js';
-
 import StockRouter from './routes/stocks'
 import OrdersRouter from './routes/orders';
 import SwaggerRouter from './routes/swagger';
@@ -24,5 +22,8 @@ app.use(OrdersRouter)
 app.use(SwaggerRouter)
 
 app.listen(3001, () => {
-    console.log('Server app listening on port ' + 3001);
-});
+    console.log('started');
+  });
+
+
+export default app 

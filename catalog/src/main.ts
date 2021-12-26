@@ -26,3 +26,6 @@ app.use(SwaggerRouter)
 app.listen(3002, () => {
     console.log('Server app listening on port ' + 3002);
 });
+
+
+export default app //using for unit tests 🧸
