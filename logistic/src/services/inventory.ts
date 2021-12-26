@@ -9,7 +9,7 @@ export async function getOrdersOfClient(id:number)
     include : [
       {model: db.boutique, as: "boutique"},
       {model: db.facture, as: "factures"},
-      {model: db.contenu, as: "contenus", include :[{model:db.article,as:"article",attributes: ['intitule_article','prix_achat']}]}
+      {model: db.contenu, as: "contenus", include :[{model:db.article,as:"article"}]}
     ]
   })
 }
@@ -19,11 +19,14 @@ export async function cancelOrder(id:number)
   return "Not implemented !"
 }
 
-export async function getOrder(idOrder:number)
+export async function getOrder(id:number)
 {
-  return await db.commande.findOne({where: { n_commande: idOrder},include : [
-    {model: db.client, as: "client"}
-]})
+  return await db.commande.findOne({where: { n_commande: id},include : [
+    {model: db.client, as: "client"},
+    {model: db.boutique, as: "boutique"},
+    {model: db.facture, as: "factures"},
+    {model: db.contenu, as: "contenus", include :[{model:db.article,as:"article"}]}
+  ]})
 }
 
 export async function getAllOrders()
