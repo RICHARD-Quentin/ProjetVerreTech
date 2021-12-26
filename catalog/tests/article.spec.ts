@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 chai.use(chaiHttp);
 import 'mocha';
+import { doesNotMatch } from 'assert';
 
 let code_article: number;
 
@@ -98,14 +99,16 @@ describe('Get a article', () => {
     })
 })
 
-describe('Get all articles', () => {
-    it('get a article', () => {
+describe('Get all articles', () => {   
+    it('get all articles', () => {
       return chai.request(app)
       .get(`/article`)
       .then(res => 
         {
+            
             VerifyResponseFormApi(res.body)
-            chai.expect(res.body.response).to.be.a("array")        
+            chai.expect(res.body.response).to.be.a("array")     
+                    
         })
         .catch((err) =>{
             VerifyResponseFormApi(err.response.body)           
@@ -121,6 +124,7 @@ describe('Delete article', () => {
         {
             chai.expect(res).to.have.property('body');
             VerifyResponseFormApi(res.body)
+             
         })
         .catch((err) =>{
             VerifyResponseFormApi(err.response.body)
@@ -128,3 +132,5 @@ describe('Delete article', () => {
         })      
     })
 })
+
+

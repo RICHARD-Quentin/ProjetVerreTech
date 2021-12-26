@@ -43,8 +43,6 @@ describe('Get a shop', () => {
       .get(`/shop/${id_boutique}`)
       .then(res => 
         {
-            console.log(res)
-
             VerifyResponseFormApi(res.body)
             chai.expect(res.body.response.id_boutique).to.exist
             chai.expect(res.body.response.id_boutique).to.be.a("number")    
