@@ -29,6 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        path: ./catalog
     - run: npm ci
     - run: npm run test
 
@@ -51,6 +52,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        path: ./logistic
     - run: npm ci
     - run: npm run test
 
@@ -73,6 +75,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        path: ./users
     - run: npm ci
     - run: npm run test
 
