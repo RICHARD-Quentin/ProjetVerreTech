@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha --timeout 80000  -r ts-node/register ./tests/**/*.spec.ts",
+    "build":"tsc",
+    "test": "mocha --timeout 80000 --exit -r ts-node/register ./tests/**/*.spec.ts",
     "swagger": "tsoa spec",
     "dev": "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon dist/logistic/src/main.js\"",
     "start": "tsc && node dist/logistic/src/main.js"
