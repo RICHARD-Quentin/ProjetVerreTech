@@ -16,8 +16,6 @@ router.route(`${baseUrl}/shop/:id`).get(function(request: any, response: any, ne
     SendResponse(stockController.getStockofShop,response,request, request.params.id)   
 });
 
-
-
 router.route(`${baseUrl}/article/:id`).get(function(request: any, response: any, next: any) {
     SendResponse(stockController.getStockofShopWithArticleID,response,request, request.params.id)   
 });
