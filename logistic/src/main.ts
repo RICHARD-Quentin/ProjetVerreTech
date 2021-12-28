@@ -20,8 +20,8 @@ app.use(express.json())
 app.use(SwaggerRouter)
 app.use(checkJwt)
 
-app.use(StockRouter)
-app.use(OrdersRouter)
+app.use(StockRouter,checkJwt.unless({ path: ['stock/shop/:id', '/stock/:shop'], method: "GET"}))
+app.use(OrdersRouter,checkJwt)
 
 app.listen(3001, () => {
     console.log('started');

@@ -32,6 +32,7 @@ const Permission = (permissions: string | string[]) => {
         }
         
     }
-  }
+}
+
 
 export {checkJwt, Permission, checkPermissions}
