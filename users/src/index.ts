@@ -3,8 +3,15 @@ import { createExpressServer } from 'routing-controllers';
 import router from "./routes";
 import express from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
 
 const index = express()
+const allowedOrigins =['http://localhost:3000'];
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+};
+index.use(cors(options));
+
 
 index.use(bodyParser.json())
 
