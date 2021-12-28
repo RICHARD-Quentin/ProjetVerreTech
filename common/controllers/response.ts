@@ -27,7 +27,6 @@ export function SendResponse(method:Function, response:Response, request:Request
 
     method.apply(method,args).then((result:any) => 
     {
-        console.log(result)
         if(result == 0){
             responseForm.success = false;
             responseForm.responseCount = 1
