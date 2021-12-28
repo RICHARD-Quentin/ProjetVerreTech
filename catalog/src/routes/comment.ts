@@ -12,24 +12,24 @@ const commentsController = new CommentsController();
 
 
 
-router.route('/comment/:id').get(function(request: any, response: any) {
+router.route('/catalog/comment/:id').get(function(request: any, response: any) {
     SendResponse(commentsController.GetComment,response,request, request.params.id)
 });
 
-router.route('/comment').get(function(request: any, response: any) {
+router.route('/catalog/comment').get(function(request: any, response: any) {
     SendResponse(commentsController.GetAll,response,request, request.query.id_boutique)
 });
 
 router.use(checkJwt)
-router.route('/comment').post(checkSchema(CommentShema),function(request: any, response: any) {
+router.route('/catalog/comment').post(checkSchema(CommentShema),function(request: any, response: any) {
     SendResponse(commentsController.CreateComment,response,request, request.body)
 });
 
-router.route('/comment/:id').delete(function(request: any, response: any) {
+router.route('/catalog/comment/:id').delete(function(request: any, response: any) {
     SendResponse(commentsController.Delete,response,request, request.params.id)
 });
 
-router.route('/comment/:id').put(checkSchema(CommentShema),function(request: any, response: any) {
+router.route('/catalog/comment/:id').put(checkSchema(CommentShema),function(request: any, response: any) {
     SendResponse(commentsController.Update,response,request,request.body,request.params.id)
 });
 
