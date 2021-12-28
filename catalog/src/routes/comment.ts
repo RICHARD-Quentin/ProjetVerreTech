@@ -9,24 +9,26 @@ const router = express.Router();
 
 const commentsController = new CommentsController();
 
-router.route('/comment/:id').get(function(request: any, response: any) {
+const baseUrl:string ="/catalog/comment"
+
+router.route(`${baseUrl}/:id`).get(function(request: any, response: any) {
     SendResponse(commentsController.GetComment,response,request, request.params.id)
 });
 
-router.route('/comment').get(function(request: any, response: any) {
+router.route(`${baseUrl}`).get(function(request: any, response: any) {
     SendResponse(commentsController.GetAll,response,request, request.query.id_boutique)
 });
 
 router.use(checkJwt)
-router.route('/comment').post(checkSchema(CommentShema),function(request: any, response: any) {
+router.route(`${baseUrl}`).post(checkSchema(CommentShema),function(request: any, response: any) {
     SendResponse(commentsController.CreateComment,response,request, request.body)
 });
 
-router.route('/comment/:id').delete(Permission('delete:comment'),function(request: any, response: any) {
+router.route(`${baseUrl}/:id`).delete(Permission('delete:comment'),function(request: any, response: any) {
     SendResponse(commentsController.Delete,response,request, request.params.id)
 });
 
-router.route('/comment/:id').put(Permission('update:comment'),checkSchema(CommentShema),function(request: any, response: any) {
+router.route(`${baseUrl}/:id`).put(Permission('update:comment'),checkSchema(CommentShema),function(request: any, response: any) {
     SendResponse(commentsController.Update,response,request,request.body,request.params.id)
 });
 

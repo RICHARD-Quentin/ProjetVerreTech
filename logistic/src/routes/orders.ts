@@ -9,7 +9,7 @@ const router = express.Router();
 
 const orderController = new OrderController();
 
-const baseUrl:string = '/order'
+const baseUrl:string = '/logistic/order'
 
 router.route(baseUrl).post(checkSchema(OrderSchema),function(request: any, response: any, next: any) {
     SendResponse(orderController.createOrder,response,request, request.body)
@@ -24,7 +24,7 @@ router.route(`${baseUrl}/:id`).get(function(request: any, response: any, next: a
 });
 
 router.route(`${baseUrl}/client/:id`).get(function(request: any, response: any, next: any) {
-    SendResponse(orderController.getOrdersOfClient,response,request, request.body, request.params.id)   
+    SendResponse(orderController.getOrdersOfClient,response,request,request.params.id)   
 })
 
 router.route(`${baseUrl}/cancel/:id`).delete(Permission('delete:order'),function(request: any, response: any, next: any) {

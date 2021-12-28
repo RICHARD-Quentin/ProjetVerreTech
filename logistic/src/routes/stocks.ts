@@ -6,7 +6,7 @@ import { checkJwt, Permission } from '../../../common/auth/middleware';
 const router = express.Router();
 const stockController = new StockController()
 
-const baseUrl:string = "/stock"
+const baseUrl:string = "/logistic/stock"
 
 router.route(`${baseUrl}/verify`).post(function(request: any, response: any, next: any) {
     SendResponse(stockController.verify,response,request, request.body)   
