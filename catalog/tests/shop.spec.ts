@@ -1,12 +1,14 @@
 import app from '../dist/catalog/src/main';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import GenerateToken from '..///../common/auth/generator'
 
 chai.use(chaiHttp);
 import 'mocha';
 import { doesNotMatch } from 'assert';
 
 let id_boutique :number;
+let token:string
 
 function VerifyResponseFormApi(body:any)
 {
@@ -16,9 +18,11 @@ function VerifyResponseFormApi(body:any)
 }
 
 describe('Create a shop', () => {
-    it('should return response of shop created', () => {
+    it('should return response of shop created', async () => {
+    token = await GenerateToken() 
       return  chai.request(app)
       .post("/shop")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         "intitule": "Boutique UnitTest",
         "enseigne": "Boutique UnitTest",       
@@ -41,6 +45,7 @@ describe('Get a shop', () => {
     it('get shop created', () => {
       return chai.request(app)
       .get(`/shop/${id_boutique}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             VerifyResponseFormApi(res.body)
@@ -67,6 +72,7 @@ describe('Get shop list', () => {
     it('get list of shops', () => {
       return chai.request(app)
       .get(`/shop`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             VerifyResponseFormApi(res.body)
@@ -83,6 +89,7 @@ describe('Modifiy a shop', () => {
     it('should return response of shop updated', () => {
       return chai.request(app)
       .put(`/shop/${id_boutique}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(
           {
             "intitule": "Boutique UnitTest",
@@ -106,6 +113,7 @@ describe('Delete a shop', () => {
     it('should return response of shop created', () => {
       return chai.request(app)
       .delete(`/shop/${id_boutique}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             chai.expect(res).to.have.property('body');

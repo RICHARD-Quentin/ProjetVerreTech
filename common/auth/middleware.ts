@@ -1,4 +1,4 @@
-import express from "express"
+import express, { NextFunction, Request } from "express"
 import jwt from "express-jwt";
 import jwksRsa from "jwks-rsa";
 const jwtAuthz = require("express-jwt-authz");
@@ -12,7 +12,7 @@ const checkJwt = jwt({
         jwksUri: `https://kradihsoy.eu.auth0.com/.well-known/jwks.json`
     }),
 
-    audience: process.env.AUTH0_AUDIENCE,
+    audience: "https://verretech/api",
     issuer: `https://kradihsoy.eu.auth0.com/`,
     algorithms: ["RS256"]
 });
@@ -25,4 +25,13 @@ const checkPermissions = (permissions: string | string[]) => {
     });
 };
 
-export {checkJwt, checkPermissions}
+const Permission = (permissions: string | string[]) => {
+    return (request:any,response:any,next:NextFunction) => {
+        if(checkPermissions(permissions)){
+            next();
+        }
+        
+    }
+  }
+
+export {checkJwt, Permission, checkPermissions}

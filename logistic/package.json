@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha -r ts-node/register ./tests/**/*.spec.ts",
+    "test": "mocha --timeout 80000  -r ts-node/register ./tests/**/*.spec.ts",
     "swagger": "tsoa spec",
     "dev": "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon dist/logistic/src/main.js\"",
     "start": "tsc && node dist/logistic/src/main.js"
@@ -20,9 +20,13 @@
     "dotenv": "^10.0.0",
     "erp-verretech": "file:../common/erp-verretech",
     "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-jwt-authz": "^2.4.1",
     "express-validator": "^6.13.0",
+    "jwks-rsa": "^2.0.5",
     "moment": "^2.29.1",
     "mysql2": "^2.3.0",
+    "node-env": "^0.1.6",
     "paypal-rest-sdk": "^1.8.1",
     "sequelize": "^6.11.0",
     "swagger-ui": "^3.52.2",

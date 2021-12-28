@@ -4,8 +4,10 @@ import chaiHttp from 'chai-http';
 chai.use(chaiHttp);
 import 'mocha';
 import { doesNotMatch } from 'assert';
+import GenerateToken from '..///../common/auth/generator'
 
 let code_article: number;
+let token:string
 
 function VerifyResponseFormApi(body:any)
 {
@@ -15,9 +17,11 @@ function VerifyResponseFormApi(body:any)
 }
 
 describe('Create a article', () => {
-    it('should return response of article created', () => {
+    it('should return response of article created',async () => {
+        token = await GenerateToken() 
       return  chai.request(app)
       .post("/article")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         "intitule_article": "Article UnitTest",
         "image": "",       
@@ -48,6 +52,7 @@ describe('Update a article', () => {
     it('should return response of shop updated', () => {
       return chai.request(app)
       .put(`/article/${code_article}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(
           {
             "intitule_article": "Article UnitTest modified",
@@ -77,6 +82,7 @@ describe('Get a article', () => {
     it('get a article', () => {
       return chai.request(app)
       .get(`/article/${code_article}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             VerifyResponseFormApi(res.body)
@@ -103,12 +109,11 @@ describe('Get all articles', () => {
     it('get all articles', () => {
       return chai.request(app)
       .get(`/article`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
-        {
-            
+        {            
             VerifyResponseFormApi(res.body)
-            chai.expect(res.body.response).to.be.a("array")     
-                    
+            chai.expect(res.body.response).to.be.a("array")                        
         })
         .catch((err) =>{
             VerifyResponseFormApi(err.response.body)           
@@ -120,6 +125,7 @@ describe('Delete article', () => {
     it('should return response of shop deleted', () => {
       return chai.request(app)
       .delete(`/article/${code_article}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             chai.expect(res).to.have.property('body');

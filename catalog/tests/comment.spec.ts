@@ -1,6 +1,7 @@
 import app from '../dist/catalog/src/main';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import GenerateToken from '..///../common/auth/generator'
 
 chai.use(chaiHttp);
 import 'mocha';
@@ -8,6 +9,7 @@ import 'mocha';
 let code_article : number
 let id_client: number
 let id_commentaire: number
+let token:string
 
 function VerifyResponseFormApi(body:any)
 {
@@ -17,9 +19,11 @@ function VerifyResponseFormApi(body:any)
 }
 
 describe('Get comments list', () => {
-    it('should return response of list of comments article', () => {
-      return  chai.request(app)
+    it('should return response of list of comments article', async () => {
+    token = await GenerateToken() 
+    return  chai.request(app)
       .get("/comment")
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {           
             VerifyResponseFormApi(res.body)
@@ -43,9 +47,9 @@ describe('Get comments list', () => {
 
 describe('Get comment', () => {
     it('should return response of comment of article', () => {
-
         return  chai.request(app)
           .get(`/comment/${code_article ?? 9999999}`)
+          .set('Authorization', `Bearer ${token}`)
           .then(res => 
             {           
                 VerifyResponseFormApi(res.body)
@@ -69,9 +73,9 @@ describe('Get comment', () => {
 
 describe('Create a comment', () => {
     it('should return response of comment created', () => {
-
         return  chai.request(app)
           .post(`/comment`)
+          .set('Authorization', `Bearer ${token}`)
           .send({
             "code_article": code_article ?? 9999999,
              "id_client": id_client ?? 9999999,
@@ -109,9 +113,9 @@ describe('Create a comment', () => {
 
 describe('Update a comment', () => {
     it('should return response of comment updated', () => {
-
         return  chai.request(app)
           .put(`/comment/${id_commentaire}`)
+          .set('Authorization', `Bearer ${token}`)
           .send({
             "code_article": code_article ?? 9999999,
              "id_client": id_client ?? 9999999,
@@ -140,6 +144,7 @@ describe('Delete a comment', () => {
     it('should return response of shop created', () => {
       return chai.request(app)
       .delete(`/comment/${id_commentaire}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
             chai.expect(res).to.have.property('body');

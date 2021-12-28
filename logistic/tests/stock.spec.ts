@@ -2,6 +2,7 @@ import app from '../dist/logistic/src/main';
 import { expect, should } from 'chai';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import GenerateToken from '..///../common/auth/generator'
 
 chai.use(chaiHttp);
 import 'mocha';
@@ -13,6 +14,8 @@ let articleTest = 1
 let id_boutique = 1
 let no_stock:number ;
 
+let token:string 
+
 function VerifyResponseFormApi(body:any)
 {
     chai.expect(body.success).to.exist
@@ -21,9 +24,11 @@ function VerifyResponseFormApi(body:any)
 }
 
 describe('Modify stock', () => {
-    it('should return the stock line with article test', () => {
+    it('should return the stock line with article test', async () => {
+      token = await GenerateToken() 
       return chai.request(app)
       .put(`/stock`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
           code_article:articleTest,
           id_boutique: id_boutique,
@@ -42,6 +47,7 @@ describe('Get stock for a article', () => {
   it('should return list of stock for the article', () => {
     return chai.request(app)
     .get(`/stock/article/${articleTest}`)
+    .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
         VerifyResponseFormApi(res.body)     
@@ -58,6 +64,7 @@ describe('Get stock of shop', () => {
     it('should return list of shop for the article', () => {
       return chai.request(app)
       .get(`/stock/shop/${id_boutique}`)
+      .set('Authorization', `Bearer ${token}`)
         .then(res => 
         {
           VerifyResponseFormApi(res.body)     
@@ -74,6 +81,7 @@ describe('Verify stock', () => {
     it('should return stock updated with substract quantity', () => {
       return chai.request(app)
       .post(`/stock/verify`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         "id_boutique":id_boutique,
         "content": [
@@ -91,6 +99,7 @@ describe('Verify stock', () => {
      it('should return false success', () => {
         return chai.request(app)
         .post(`/stock/verify`)
+        .set('Authorization', `Bearer ${token}`)
         .send({
           "id_boutique":id_boutique,
           "content": [
@@ -109,10 +118,14 @@ describe('Delete stock of article test', () => {
     it('modify the stock with article test', () => {
       return chai.request(app)
       .delete(`/stock/${no_stock}`)
+      .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
-          VerifyResponseFormApi(res.body)          
+          VerifyResponseFormApi(res.body)    
+                
           chai.expect(res.body.success).to.be.equal(true)
         })
      })
 })
+
+

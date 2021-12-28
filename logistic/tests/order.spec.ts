@@ -2,6 +2,7 @@ import app from '../dist/logistic/src/main';
 import { expect, should } from 'chai';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import GenerateToken from '..///../common/auth/generator'
 
 chai.use(chaiHttp);
 import 'mocha';
@@ -13,6 +14,8 @@ let id_client: number = 1
 let id_boutique : number = 1
 let orderId: number = 1
 
+let token:string 
+
 function VerifyResponseFormApi(body:any)
 {
     chai.expect(body.success).to.exist
@@ -21,27 +24,31 @@ function VerifyResponseFormApi(body:any)
 }
 
 describe('Get all orders', () => {
-  it('should return list of orders', (done) => {
-    return chai.request(app)
-    .get("/order")
-      .then(res => 
-      {
-        VerifyResponseFormApi(res.body)     
+    it('should return list of orders', async() => {
+      token = await GenerateToken() 
+      console.log(token)
+      const res = await chai.request(app)
+      .get("/order")
+      .set('Authorization', `Bearer ${token}`)
+
+          VerifyResponseFormApi(res.body)     
+          
+          if(res.body.responseCount > 0 && res.body.success == true)
+          {
+            chai.expect(res.body.response).to.be.a("array")
+            orderId = res.body.response[0].n_commande       
+          }
         
-        if(res.body.responseCount > 0 && res.body.success == true)
-        {
-          chai.expect(res.body.response).to.be.a("array")
-          orderId = res.body.response[0].n_commande       
-        }
-        done();
-      })
-   })
+     })
 })
+
+
 
 describe('Get a order', () => {
   it('should return order with id', () => {
     return chai.request(app)
     .get(`/order/${orderId}`)
+    .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
         VerifyResponseFormApi(res.body)       
@@ -67,6 +74,7 @@ describe('Get orders of customer', () => {
   it('should return orders list of customer with an id', () => {
     return chai.request(app)
     .get(`/order/client/${id_client}`)
+    .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
         VerifyResponseFormApi(res.body)       
@@ -84,6 +92,8 @@ describe('Create an order', () => {
   it('should return response of order created', () => {
     return chai.request(app)
     .post("/order")
+    .set('Authorization', `Bearer ${token}`)
+    //.set({ Authorization: `Bearer ${token}` })
     .send(
       {
       "id_boutique":id_boutique,
@@ -116,12 +126,6 @@ describe('Create an order', () => {
 
           chai.expect(res.body.response.id_boutique).to.exist
           chai.expect(res.body.response.id_boutique).to.be.a("number")
-
-          chai.expect(res.body.response.date_commande).to.exist
-          chai.expect(res.body.response.date_commande).to.be.a("date")
-
-          chai.expect(res.body.response.date_retrait).to.exist
-          chai.expect(res.body.response.date_retrait).to.be.a("date")
 
           chai.expect(res.body.response.statut).to.exist
           chai.expect(res.body.response.payment).to.exist

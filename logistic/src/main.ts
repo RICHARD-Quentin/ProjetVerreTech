@@ -4,6 +4,7 @@ import cors from 'cors';
 import StockRouter from './routes/stocks'
 import OrdersRouter from './routes/orders';
 import SwaggerRouter from './routes/swagger';
+import { checkJwt } from '../../common/auth/middleware';
 
 const app = express();
 
@@ -16,10 +17,12 @@ app.use(cors(options));
 
 app.use(express.json())
 
+app.use(SwaggerRouter)
+app.use(checkJwt)
 app.use(StockRouter)
 app.use(OrdersRouter)
 
-app.use(SwaggerRouter)
+
 
 app.listen(3001, () => {
     console.log('started');
