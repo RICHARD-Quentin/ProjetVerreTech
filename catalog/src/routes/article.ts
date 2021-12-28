@@ -9,8 +9,6 @@ const router = express.Router();
 
 const articleController = new ArticleController();
 
-
-
 router.route('/article/:id').get(function(request: any, response: any) {
     SendResponse(articleController.GetArticle,response,request, request.params.id)
 });

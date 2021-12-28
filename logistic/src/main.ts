@@ -19,14 +19,12 @@ app.use(express.json())
 
 app.use(SwaggerRouter)
 app.use(checkJwt)
+
 app.use(StockRouter)
 app.use(OrdersRouter)
-
-
 
 app.listen(3001, () => {
     console.log('started');
   });
-
 
 export default app 
