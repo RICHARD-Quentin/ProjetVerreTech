@@ -21,4 +21,17 @@ export const ShopShema : Schema= {
         errorMessage: 'adresse_magasin field is wrong or missing',
         isString: true
     },
+
+    lat: 
+    {
+        in: ['body'],
+        errorMessage: 'lat field is wrong or missing',
+        isNumeric: true
+    },
+    lng: 
+    {
+        in: ['body'],
+        errorMessage: 'lng field is wrong or missing',
+        isNumeric: true
+    }
 }
