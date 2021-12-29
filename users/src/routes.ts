@@ -21,7 +21,8 @@ router.use(checkJwt)
 router.get(`${baseUrl}`, (req, res) => {user.search(req, res)});
 router.post(`${baseUrl}`, (req, res) => {user.upsert(req, res)});
 
-router.get(`${baseUrl}/:id`, (req, res) => {user.findByAuthId(req, res)});
+router.get(`${baseUrl}/:id`, (req, res) => {user.findById(req, res)});
+router.get(`${baseUrl}/auth/:id`, (req, res) => {user.findByAuthId(req, res)});
 router.put(`${baseUrl}/:id`, (req, res) => {user.update(req, res)});
 
 router.use(checkPermissions('delete:user'))
