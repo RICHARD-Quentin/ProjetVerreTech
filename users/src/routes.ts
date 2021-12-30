@@ -1,21 +1,27 @@
 import { userController } from './controllers/user.controller';
-import { adresseController } from './controllers/adresse.controller'
+import { villeController } from './controllers/villes.controller'
 import express from 'express';
 // import UserService from "./services/user.service";
 // import swaggerUI from 'swagger-ui-express';
 // import { swaggerDocument } from './swagger';
 import {checkJwt, checkPermissions} from "../../common/auth/middleware";
 import {SendResponse} from "../../common/controllers/response";
+import {paysController} from "./controllers/pays.controller";
 
 const router = express.Router();
 
 const user = userController
-const adresse = adresseController
+const ville = villeController
+const pays = paysController
 
 const baseUrl = '/user'
 
 // router.use(`${baseUrl}/api`, swaggerUI.serve);
 // router.get(`${baseUrl}/api`, swaggerUI.setup(swaggerDocument));
+router.get(`${baseUrl}/villes`, (req, res) => {ville.search(req, res)});
+router.get(`${baseUrl}/pays`, (req, res) => {pays.search(req, res)});
+router.get(`${baseUrl}/villes/:id`, (req, res) => {ville.findById(req, res)});
+router.get(`${baseUrl}/pays/:id`, (req, res) => {pays.findById(req, res)});
 
 router.use(checkJwt)
 router.get(`${baseUrl}`, (req, res) => {user.search(req, res)});
@@ -28,7 +34,6 @@ router.put(`${baseUrl}/:id`, (req, res) => {user.update(req, res)});
 router.use(checkPermissions('delete:user'))
 router.delete(`${baseUrl}/:id`, (req, res) => {user.delete(req, res)});
 
-router.post(`${baseUrl}/adresse`, (req, res) => {adresse.upsert(req, res)});
 
 // router.use(checkJwt)
 // router.get(`${baseUrl}`, (request: any, response: any, next: any) => {
