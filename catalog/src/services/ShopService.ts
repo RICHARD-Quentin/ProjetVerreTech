@@ -18,7 +18,9 @@ export default class
         return await models.boutique.create({
                 intitule: shop.intitule,
                 enseigne: shop.enseigne,
-                adresse_magasin : shop.adresse_magasin               
+                adresse_magasin : shop.adresse_magasin,
+                lat: shop.lat,
+                lng: shop.lng               
         })         
     }
 

@@ -1,8 +1,11 @@
+
 import models, {models as db , sequelize} from '../../../common/database'
 import { Article } from '../models/Article'
 
 export default class 
 {
+    filters = {}
+    commandable : boolean = false
 
     public async CreateArticle(article:Article)
     {
@@ -21,35 +24,67 @@ export default class
     }
 
     
-    public async GetArticles(idOfShop: Number)
+    public async GetArticles(idOfShop?: number, limit?:number, page?:number, commandable?:boolean,orderby?:string)
     {
-        if(idOfShop != null)
+        let query:any = {}
+        let ordersStock:any = []
+        let ordersArticle:any = []
+
+        let WherefilterArticle = {}
+        let WherefilterStock = {}
+
+        if(commandable)WherefilterArticle["commandable"] = commandable
+        if(idOfShop)WherefilterStock["id_boutique"] = idOfShop.toString()
+
+        if(limit != null && page != null){
+            query["limit"] = Number(limit)
+            query["offset"] = (page * limit)- limit 
+        }
+        if(orderby)
         {
-            
-            return await models.stock.findAll({attributes: ['quantité','no_stock'],where: { id_boutique : idOfShop.toString()}, include : [
-                {model: db.article, as: "article", required: false}
-            ]})
+            switch(orderby)
+            {
+            case "note":
+                    ordersStock = [[db.article,'note_moyenne','DESC']]
+                    ordersArticle =  [['note_moyenne','DESC']]
+                break;
+            case "price":      
+                    ordersStock = [[db.article,'prix_achat','ASC']] 
+                    ordersArticle =  [['prix_achat','ASC']]       
+                break;
+            case "date":
+                break;
+            }
+        }
+    
+        if(idOfShop != null)
+        {          
+            query["where"] = WherefilterStock         
+            query["include"] = [{model: db.article, as: "article", where: WherefilterArticle}]
+            query["order"] = ordersStock 
+            return await models.stock.findAndCountAll(query)
         }
         else
-        {
-            return await models.article.findAll()
+        {    
+            query["order"] = ordersArticle       
+            return await models.article.findAndCountAll(query)
         }
-
-        
+       
     }
 
     public async GetArticle(id: Number, shopId? : Number)
     {
         if(shopId != null)
         {
+            
             return await models.stock.findOne({where: {id_boutique : shopId.toString(), code_article : id.toString()},include : [
-                {model: db.article, as: "article"},{model: db.commentaire, as: "commentaires"}
+                {model: db.article, as: "article", include: [{model: db.commentaire, as: "commentaires",required:false,where: {code_article:id.toString()}, include: [ {model: db.client, as: "client"}]}]}               
               ]})
         }
         else
         {
             return await models.article.findOne({where : {code_article : id.toString()},include : [
-                {model: db.commentaire, as: "commentaires"}
+                {model: db.commentaire, as: "commentaires",include: [ {model: db.client, as: "client"}]}
               ]})
         }
        
