@@ -7,7 +7,7 @@ import type { stock, stockId } from './stock';
 export interface articleAttributes {
   code_article: number;
   intitule_article: string;
-  image?: any;
+  image?: string;
   dimension_1: number;
   dimension_2: number;
   dimension_3: number;
@@ -25,7 +25,7 @@ export type articleCreationAttributes = Optional<articleAttributes, articlePk>;
 export class article extends Model<articleAttributes, articleCreationAttributes> implements articleAttributes {
   code_article!: number;
   intitule_article!: string;
-  image?: any;
+  image?: string;
   dimension_1!: number;
   dimension_2!: number;
   dimension_3!: number;
@@ -85,7 +85,7 @@ export class article extends Model<articleAttributes, articleCreationAttributes>
       allowNull: false
     },
     image: {
-      type: DataTypes.BLOB,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     dimension_1: {
@@ -117,7 +117,7 @@ export class article extends Model<articleAttributes, articleCreationAttributes>
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING(5000),
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {

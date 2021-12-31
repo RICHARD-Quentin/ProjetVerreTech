@@ -8,6 +8,8 @@ export interface boutiqueAttributes {
   intitule: string;
   enseigne: string;
   adresse_magasin: string;
+  lat?: number;
+  lng?: number;
 }
 
 export type boutiquePk = "id_boutique";
@@ -19,6 +21,8 @@ export class boutique extends Model<boutiqueAttributes, boutiqueCreationAttribut
   intitule!: string;
   enseigne!: string;
   adresse_magasin!: string;
+  lat?: number;
+  lng?: number;
 
   // boutique hasMany commande via id_boutique
   commandes!: commande[];
@@ -64,6 +68,14 @@ export class boutique extends Model<boutiqueAttributes, boutiqueCreationAttribut
     adresse_magasin: {
       type: DataTypes.STRING(50),
       allowNull: false
+    },
+    lat: {
+      type: DataTypes.DECIMAL(20,6),
+      allowNull: true
+    },
+    lng: {
+      type: DataTypes.DECIMAL(20,6),
+      allowNull: true
     }
   }, {
     sequelize,

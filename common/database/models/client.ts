@@ -112,16 +112,16 @@ export class client extends Model<clientAttributes, clientCreationAttributes> im
     d_crea_compte: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: new Date()
+      defaultValue: Sequelize.Sequelize.fn('current_timestamp')
     },
     mail: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
     authId: {
-       type: DataTypes.STRING(40),
-       allowNull: false
-     }
+      type: DataTypes.STRING(40),
+      allowNull: false
+    }
   }, {
     sequelize,
     tableName: 'client',
