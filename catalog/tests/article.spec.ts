@@ -113,7 +113,7 @@ describe('Get all articles', () => {
       .then(res => 
         {            
             VerifyResponseFormApi(res.body)
-            chai.expect(res.body.response).to.be.a("array")                        
+            chai.expect(res.body.response.rows).to.be.a("array")                        
         })
         .catch((err) =>{
             VerifyResponseFormApi(err.response.body)           

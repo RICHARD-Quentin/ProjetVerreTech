@@ -12,11 +12,16 @@ const articleController = new ArticleController();
 const baseUrl:string ="/catalog/article"
 
 router.route(`${baseUrl}/:id`).get(function(request: any, response: any) {
-    SendResponse(articleController.GetArticle,response,request, request.params.id)
+    SendResponse(articleController.GetArticle,response,request, request.params.id,request.query.id_boutique)
 });
 
 router.route(`${baseUrl}`).get(function(request: any, response: any) {
-    SendResponse(articleController.GetArticles,response,request, request.query.id_boutique)
+    SendResponse(articleController.GetArticles,response,request,
+         request.query.id_boutique,
+         request.query.limit,
+         request.query.page,
+         request.query.commandable,
+         request.query.orderby)
 });
 
 router.route(`${baseUrl}`).post(Permission('create:article'),checkSchema(ArticleShema),function(request: any, response: any) {

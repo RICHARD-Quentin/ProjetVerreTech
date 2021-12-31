@@ -1,8 +1,8 @@
 import CatalogService from "../services/CatalogService";
 import { Route,Get,Post,Delete,Put,Query, Body, Tags, Path } from "tsoa";
 import { Article } from "../models/Article";
-const catalogservice = new CatalogService()
 
+const catalogservice = new CatalogService()
 @Route("article")
 @Tags("articles")
 export class ArticleController {
@@ -27,14 +27,14 @@ export class ArticleController {
 
     @Get('{id}')
     public async GetArticle(@Path() id : number, @Query() id_boutique : number): Promise<any> 
-    {   
+    {  
         return await catalogservice.GetArticle(id,id_boutique)  
     }
 
     @Get()
-    public async GetArticles(@Query() id_boutique : number): Promise<any> 
+    public async GetArticles(@Query() id_boutique? : number, @Query() limit? : number, @Query() page? : number,@Query() commandable? : boolean, @Query() orderby?:string): Promise<any> 
     {
-        return await catalogservice.GetArticles(id_boutique)        
+        return await catalogservice.GetArticles(id_boutique,limit,page,commandable,orderby)        
     }
 
     @Post()
