@@ -18,24 +18,24 @@ export class OrderController{
     @Delete("/cancel/{id}")
     public async cancelOrder(@Path() id:number) : Promise<any> {
 
-        return InventoryService.cancelOrder(id);
+        return await InventoryService.cancelOrder(id);
     }
 
     @Get()
     public async getOrders(): Promise<any> {
-        return InventoryService.getAllOrders();
+        return  await InventoryService.getAllOrders();
     }
 
     @Get("/client/{id}")
-    public async getOrdersOfClient (@Path() id:number) 
+    public async getOrdersOfClient (@Path() id:number) : Promise<any>
     {  
-        return InventoryService.getOrdersOfClient(id);
+        return await InventoryService.getOrdersOfClient(id);
     }
 
     @Get("{id}")
-    public async getOrder (@Path() id:number) 
-    {  
-        return InventoryService.getOrder(id)
+    public async getOrder (@Path() id:number) : Promise<any>
+    { 
+        return await InventoryService.getOrder(id)
     }
 
     @Post()
@@ -77,28 +77,31 @@ export class OrderController{
                     return resolve(orderCreated)
                     }).catch(error=>{return reject(error)})
                 }
-                ////////////////////////////
-    
-                // Customer want to pay 🦄
-                ////////////////////////////
-                payment.ValidatePayment().then(paymentResult =>
+                else
                 {
-                    if(paymentResult == true)
+                    ////////////////////////////    
+                    // Customer want to pay 🦄
+                    ////////////////////////////
+                    payment.ValidatePayment().then(paymentResult =>
                     {
-                        InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderPayment.Website).then(orderCreated=>{
-                            return resolve(orderCreated)
-                        }).catch(error=>{return reject(error)})             
-                    }
-                    else
+                        if(paymentResult == true)
+                        {
+                            InventoryService.CreateOrder(order,order.id_client,order.date_retrait,order.id_boutique,orderResult,OrderPayment.Website).then(orderCreated=>{
+                                return resolve(orderCreated)
+                            }).catch(error=>{return reject(error)})             
+                        }
+                        else
+                        {
+                             return reject("Invalid payment !")
+                        }
+                    })
+                    .catch(err =>
                     {
-                         return reject("Invalid payment !")
-                    }
-                })
-                .catch(err =>
-                {
-                    return reject(err)
-                })
-                ////////////////////////////
+                        return reject(err)
+                    })
+                    ////////////////////////////
+                }
+                
                      
             }).catch(err => {console.log(err) ;return reject(err)})
         })

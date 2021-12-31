@@ -1,9 +1,9 @@
 import IService from "interfaces/src/IService";
-import {CreateOptions, Model, where} from "sequelize";
+import {CreateOptions, Model, Op, where} from "sequelize";
 import {models as db , sequelize} from '../../../common/database'
 
-export default class AdresseService implements IService {
-    public model = db.adresse
+export default class VillesService implements IService {
+    public model = db.ville
 
     async create(data?: any): Promise<any> {
         return this.model.create(data)
@@ -13,12 +13,24 @@ export default class AdresseService implements IService {
         return this.model.upsert(data)
     }
 
-    async delete(id: number): Promise<number> {
-        return this.model.destroy({where: {id_client: id}})
+    async delete(id: number): Promise<any> {
+        return Promise.resolve([]);
     }
 
     async find(parameters?: any): Promise<any[]> {
-        return Promise.resolve([]);
+        // @ts-ignore
+        if (typeof parameters.query.search != "undefined") {
+            return this.model.findAll({
+                where: {
+                    [Op.or]: [
+                        {ville: {[Op.like]: '%' + parameters.query.search + '%'}},
+                        {code_postal: {[Op.like]: '%' + parameters.query.search + '%'}},
+                    ]
+                }
+            })
+        } else {
+            return this.model.findAll()
+        };
     }
 
     async findAndCount(parameters?: any): Promise<{ rows: any[]; count: number }> {
@@ -34,7 +46,7 @@ export default class AdresseService implements IService {
     }
 
     async update(id: number, data?: any): Promise<any> {
-        return this.model.update(data, {where: {id_client: id}})
+        return Promise.resolve([]);
     }
 
 }

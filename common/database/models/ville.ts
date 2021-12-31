@@ -7,7 +7,7 @@ export interface villeAttributes {
   id_ville: number;
   id_pays: number;
   ville: string;
-  code_postal: number;
+  code_postal: string;
 }
 
 export type villePk = "id_ville";
@@ -18,7 +18,7 @@ export class ville extends Model<villeAttributes, villeCreationAttributes> imple
   id_ville!: number;
   id_pays!: number;
   ville!: string;
-  code_postal!: number;
+  code_postal!: string;
 
   // ville belongsTo pays via id_pays
   id_pays_pay!: pays;
@@ -59,7 +59,7 @@ export class ville extends Model<villeAttributes, villeCreationAttributes> imple
       allowNull: false
     },
     code_postal: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: false
     }
   }, {
@@ -76,7 +76,7 @@ export class ville extends Model<villeAttributes, villeCreationAttributes> imple
         ]
       },
       {
-        name: "id_pays",
+        name: "FK_ville_pays",
         using: "BTREE",
         fields: [
           { name: "id_pays" },

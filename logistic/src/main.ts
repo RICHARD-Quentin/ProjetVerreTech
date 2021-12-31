@@ -1,11 +1,10 @@
 import express from 'express';
-
+import models, {models as db , sequelize} from '../../common/database'
 import cors from 'cors';
-//import * as order from './services/orderExceeded.js';
-
 import StockRouter from './routes/stocks'
 import OrdersRouter from './routes/orders';
 import SwaggerRouter from './routes/swagger';
+import { checkJwt } from '../../common/auth/middleware';
 
 const app = express();
 
@@ -18,11 +17,14 @@ app.use(cors(options));
 
 app.use(express.json())
 
-app.use(StockRouter)
-app.use(OrdersRouter)
-
 app.use(SwaggerRouter)
+app.use(checkJwt)
+
+app.use(StockRouter,checkJwt.unless({ path: ['stock/shop/:id', '/stock/:shop'], method: "GET"}))
+app.use(OrdersRouter,checkJwt)
 
 app.listen(3001, () => {
-    console.log('Server app listening on port ' + 3001);
-});
+    console.log('started');
+  });
+
+export default app 
