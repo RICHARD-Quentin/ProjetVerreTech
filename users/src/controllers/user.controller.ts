@@ -36,7 +36,7 @@ class UserController {
         } catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors ,
             } as ICommonResFailed)
         }
     }
