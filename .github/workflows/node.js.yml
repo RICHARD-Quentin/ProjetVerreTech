@@ -30,12 +30,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: './catalog/package-lock.json'
-    - run: cd  ../common/database
-          | npm ci
-    - run: cd  ../common/auth
-          | npm ci
-    - run: cd ../catalog
-          | npm ci
+    - run: npm --prefix ../common/database ci
+    - run: npm --prefix ../common/auth ci
+    - run: npm ci
     - run: npm run build --if-present
     - run: npm run test
 
