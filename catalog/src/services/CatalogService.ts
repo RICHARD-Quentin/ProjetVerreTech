@@ -75,8 +75,7 @@ export default class
     public async GetArticle(id: Number, shopId? : Number)
     {
         if(shopId != null)
-        {
-            
+        {          
             return await models.stock.findOne({where: {id_boutique : shopId.toString(), code_article : id.toString()},include : [
                 {model: db.article, as: "article", include: [{model: db.commentaire, as: "commentaires",required:false,where: {code_article:id.toString()}, include: [ {model: db.client, as: "client"}]}]}               
               ]})
