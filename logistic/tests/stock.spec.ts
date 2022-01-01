@@ -27,7 +27,7 @@ describe('Modify stock', () => {
     it('should return the stock line with article test', async () => {
       token = await GenerateToken() 
       return chai.request(app)
-      .put(`/stock`)
+      .put(`/logistic/stock`)
       .set('Authorization', `Bearer ${token}`)
       .send({
           code_article:articleTest,
@@ -46,7 +46,7 @@ describe('Modify stock', () => {
 describe('Get stock for a article', () => {
   it('should return list of stock for the article', () => {
     return chai.request(app)
-    .get(`/stock/article/${articleTest}`)
+    .get(`/logistic/stock/article/${articleTest}`)
     .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
@@ -63,7 +63,7 @@ describe('Get stock for a article', () => {
 describe('Get stock of shop', () => {
     it('should return list of shop for the article', () => {
       return chai.request(app)
-      .get(`/stock/shop/${id_boutique}`)
+      .get(`/logistic/stock/shop/${id_boutique}`)
       .set('Authorization', `Bearer ${token}`)
         .then(res => 
         {
@@ -80,7 +80,7 @@ describe('Get stock of shop', () => {
 describe('Verify stock', () => {
     it('should return stock updated with substract quantity', () => {
       return chai.request(app)
-      .post(`/stock/verify`)
+      .post(`/logistic/stock/verify`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         "id_boutique":id_boutique,
@@ -98,7 +98,7 @@ describe('Verify stock', () => {
      })
      it('should return false success', () => {
         return chai.request(app)
-        .post(`/stock/verify`)
+        .post(`/logistic/stock/verify`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           "id_boutique":id_boutique,
@@ -117,7 +117,7 @@ describe('Verify stock', () => {
 describe('Delete stock of article test', () => {
     it('modify the stock with article test', () => {
       return chai.request(app)
-      .delete(`/stock/${no_stock}`)
+      .delete(`/logistic/stock/${no_stock}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
