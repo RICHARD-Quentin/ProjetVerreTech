@@ -10,6 +10,7 @@ export interface adresseAttributes {
   id_pays?: number;
   id_ville?: number;
   adresse: string;
+  is_facturation: number;
 }
 
 export type adressePk = "id_adresse";
@@ -22,6 +23,7 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
   id_pays?: number;
   id_ville?: number;
   adresse!: string;
+  is_facturation!: number;
 
   // adresse belongsTo client via id_client
   id_client_client!: client;
@@ -73,6 +75,10 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
     },
     adresse: {
       type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    is_facturation: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {
