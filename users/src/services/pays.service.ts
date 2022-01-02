@@ -21,7 +21,9 @@ export default class PaysService implements IService {
         // @ts-ignore
         if (typeof parameters.query.search != "undefined") {
             return this.model.findAll({
+
                 where:{
+                    // @ts-ignore
                     pays: {[Op.like]: '%' + parameters.query.search + '%'},
                 }
             });
