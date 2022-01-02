@@ -62,7 +62,6 @@ export async function CreateOrder(customerOrder:Order,id_client:number,date_retr
           },
           {transaction:t})
          
-
           const contents = await db.contenu.bulkCreate(customerOrder.contents.map(e =>{
             return {n_commande:newOrder.n_commande,
               code_article: e.code_article,
@@ -76,7 +75,10 @@ export async function CreateOrder(customerOrder:Order,id_client:number,date_retr
               {
                 id_client:id_client,
                 n_commande: newOrder.n_commande,
-                date_facture:new Date()
+                date_facture:new Date(),
+                id_pays: customerOrder.invoice.id_pays,
+                id_ville : customerOrder.invoice.id_ville,
+                adresse : customerOrder.invoice.adresse
               },{transaction:t})
           }                 
           return newOrder

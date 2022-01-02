@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { adresse, adresseId } from './adresse';
+import type { facture, factureId } from './facture';
 import type { pays, paysId } from './pays';
 
 export interface villeAttributes {
@@ -37,6 +38,18 @@ export class ville extends Model<villeAttributes, villeCreationAttributes> imple
   hasAdress!: Sequelize.HasManyHasAssociationMixin<adresse, adresseId>;
   hasAdresses!: Sequelize.HasManyHasAssociationsMixin<adresse, adresseId>;
   countAdresses!: Sequelize.HasManyCountAssociationsMixin;
+  // ville hasMany facture via id_ville
+  factures!: facture[];
+  getFactures!: Sequelize.HasManyGetAssociationsMixin<facture>;
+  setFactures!: Sequelize.HasManySetAssociationsMixin<facture, factureId>;
+  addFacture!: Sequelize.HasManyAddAssociationMixin<facture, factureId>;
+  addFactures!: Sequelize.HasManyAddAssociationsMixin<facture, factureId>;
+  createFacture!: Sequelize.HasManyCreateAssociationMixin<facture>;
+  removeFacture!: Sequelize.HasManyRemoveAssociationMixin<facture, factureId>;
+  removeFactures!: Sequelize.HasManyRemoveAssociationsMixin<facture, factureId>;
+  hasFacture!: Sequelize.HasManyHasAssociationMixin<facture, factureId>;
+  hasFactures!: Sequelize.HasManyHasAssociationsMixin<facture, factureId>;
+  countFactures!: Sequelize.HasManyCountAssociationsMixin;
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ville {
     ville.init({
