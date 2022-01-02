@@ -96,6 +96,7 @@ describe('Create an order', () => {
     //.set({ Authorization: `Bearer ${token}` })
     .send(
       {
+      "invoice": {"id_pays":1,"id_ville":1,"adresse":"adresse de test"},
       "id_boutique":id_boutique,
       "id_client":id_client,
       "contents":contents,
