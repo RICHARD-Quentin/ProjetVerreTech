@@ -15,7 +15,7 @@ index.use(cors(options));
 
 index.use(bodyParser.json())
 
-// creates express index, registers all controller routes and returns you express index instance
+// creates express index, registers all controllers routes and returns you express index instance
 index.use(router)
 
 // run express application on port 3000

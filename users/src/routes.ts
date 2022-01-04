@@ -31,6 +31,8 @@ router.get(`${baseUrl}/:id`, (req, res) => {user.findById(req, res)});
 router.get(`${baseUrl}/auth/:id`, (req, res) => {user.findByAuthId(req, res)});
 router.put(`${baseUrl}/:id`, (req, res) => {user.update(req, res)});
 
+router.get(`${baseUrl}/adresses/facturation/:id`, (req, res) => {user.getFacturationAdresse(req, res)})
+
 router.use(checkPermissions('delete:user'))
 router.delete(`${baseUrl}/:id`, (req, res) => {user.delete(req, res)});
 

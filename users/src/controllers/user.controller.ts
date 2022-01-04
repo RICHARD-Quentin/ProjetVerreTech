@@ -4,6 +4,7 @@ import IService from "interfaces/src/IService";
 import {ICommonDataRes, ICommonResFailed, ICommonResSuccess} from "interfaces/src/IResponse";
 import {models as db , sequelize} from '../../../common/database'
 import {Error} from "sequelize";
+import {body} from "express-validator";
 
 class UserController {
     public service: IService = new UserService
@@ -121,6 +122,27 @@ class UserController {
             } as ICommonResFailed)
         }
     }
+
+    public async getFacturationAdresse(req: Request, res: Response): Promise<Response> {
+        try {
+            const id_client = req.params.id
+            const parameters = {where: {
+                    id_client: id_client,
+                    is_facturation: true,
+                }}
+            const data = await this.service.find(parameters)
+            return res.status(200).json({
+                data
+            } as ICommonResSuccess)
+        }
+        catch (err: any) {
+            return res.status(402).json({
+                message: err.name,
+                validations: err.errors,
+            } as ICommonResFailed)
+        }
+    }
+
 
     private getValidation(errors: Array<any>): Array<any> {
         const validations = errors.map( error => {

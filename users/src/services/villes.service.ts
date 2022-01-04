@@ -22,6 +22,8 @@ export default class VillesService implements IService {
         if (typeof parameters.query.search != "undefined") {
             return this.model.findAll({
                 where: {
+                    // @ts-ignore
+
                     [Op.or]: [
                         {ville: {[Op.like]: '%' + parameters.query.search + '%'}},
                         {code_postal: {[Op.like]: '%' + parameters.query.search + '%'}},
