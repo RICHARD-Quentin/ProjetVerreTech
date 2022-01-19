@@ -78,6 +78,27 @@
 			},
 			"Order": {
 				"properties": {
+					"invoice": {
+						"properties": {
+							"adresse": {
+								"type": "string"
+							},
+							"id_ville": {
+								"type": "number",
+								"format": "double"
+							},
+							"id_pays": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"adresse",
+							"id_ville",
+							"id_pays"
+						],
+						"type": "object"
+					},
 					"payment": {
 						"properties": {
 							"id_client": {
@@ -119,6 +140,7 @@
 					}
 				},
 				"required": [
+					"invoice",
 					"payment",
 					"contents",
 					"date_retrait",
@@ -494,7 +516,7 @@
 													"quantité": 2
 												}
 											],
-											"date_retrait": "2021-12-26T16:50:08.586Z",
+											"date_retrait": "2022-01-19T18:50:36.064Z",
 											"payment": {
 												"params": {
 													"payerID": "9T8M2JEDR9P92",
@@ -502,6 +524,11 @@
 													"paymentToken": "EC-45U139152R760821U"
 												},
 												"id_client": 1
+											},
+											"invoice": {
+												"id_pays": 1,
+												"id_ville": 20554,
+												"adresse": "1 rue de laxou"
 											}
 										}
 									}
