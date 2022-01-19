@@ -92,7 +92,7 @@ export function initModels(sequelize: Sequelize) {
   boutique.hasMany(stock, { as: "stocks", foreignKey: "id_boutique"});
   adresse.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(adresse, { as: "adresses", foreignKey: "id_client"});
-  commande.belongsTo(client, { as: "id_client_client", foreignKey: "id_client"});
+  commande.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(commande, { as: "commandes", foreignKey: "id_client"});
   commentaire.belongsTo(client, { as: "client", foreignKey: "id_client"});
   client.hasMany(commentaire, { as: "commentaires", foreignKey: "id_client"});
