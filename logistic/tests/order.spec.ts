@@ -61,10 +61,7 @@ describe('Get a order', () => {
                 return article.code_article            
             })         
         }
-        else
-        {
-          chai.expect(res.body.response.Message).to.be.equal("No result !")
-        }
+       
 
       })
    })
