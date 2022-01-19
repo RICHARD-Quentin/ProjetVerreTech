@@ -1,6 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { DataTypes, Model, Optional } from 'sequelize';
 import type { adresse, adresseId } from './adresse';
+import type { facture, factureId } from './facture';
 import type { ville, villeId } from './ville';
 
 export interface paysAttributes {
@@ -28,6 +29,18 @@ export class pays extends Model<paysAttributes, paysCreationAttributes> implemen
   hasAdress!: Sequelize.HasManyHasAssociationMixin<adresse, adresseId>;
   hasAdresses!: Sequelize.HasManyHasAssociationsMixin<adresse, adresseId>;
   countAdresses!: Sequelize.HasManyCountAssociationsMixin;
+  // pays hasMany facture via id_pays
+  factures!: facture[];
+  getFactures!: Sequelize.HasManyGetAssociationsMixin<facture>;
+  setFactures!: Sequelize.HasManySetAssociationsMixin<facture, factureId>;
+  addFacture!: Sequelize.HasManyAddAssociationMixin<facture, factureId>;
+  addFactures!: Sequelize.HasManyAddAssociationsMixin<facture, factureId>;
+  createFacture!: Sequelize.HasManyCreateAssociationMixin<facture>;
+  removeFacture!: Sequelize.HasManyRemoveAssociationMixin<facture, factureId>;
+  removeFactures!: Sequelize.HasManyRemoveAssociationsMixin<facture, factureId>;
+  hasFacture!: Sequelize.HasManyHasAssociationMixin<facture, factureId>;
+  hasFactures!: Sequelize.HasManyHasAssociationsMixin<facture, factureId>;
+  countFactures!: Sequelize.HasManyCountAssociationsMixin;
   // pays hasMany ville via id_pays
   villes!: ville[];
   getVilles!: Sequelize.HasManyGetAssociationsMixin<ville>;

@@ -61,10 +61,7 @@ describe('Get a order', () => {
                 return article.code_article            
             })         
         }
-        else
-        {
-          chai.expect(res.body.response.Message).to.be.equal("No result !")
-        }
+       
 
       })
    })
@@ -96,6 +93,7 @@ describe('Create an order', () => {
     //.set({ Authorization: `Bearer ${token}` })
     .send(
       {
+      "invoice": {"id_pays":1,"id_ville":1,"adresse":"adresse de test"},
       "id_boutique":id_boutique,
       "id_client":id_client,
       "contents":contents,
