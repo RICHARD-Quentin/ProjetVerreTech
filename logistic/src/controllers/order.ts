@@ -57,6 +57,11 @@ export class OrderController{
                 },
                 "method": PaymentMethod.Paypal,
                 "id_client":1
+            },
+        "invoice": {
+                "id_pays": 1,
+                "id_ville": 20554,
+                "adresse": "1 rue de laxou"
             }
     })
     public async createOrder(@Body() order:Order) : Promise<Order>

@@ -26,7 +26,7 @@ export class facture extends Model<factureAttributes, factureCreationAttributes>
   date_facture!: Date;
   id_pays?: number;
   id_ville?: number;
-  adresse?: number;
+  adresse?: string;
 
   // facture belongsTo client via id_client
   id_client_client!: client;
@@ -94,7 +94,7 @@ export class facture extends Model<factureAttributes, factureCreationAttributes>
       }
     },
     adresse: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: true
     }
   }, {
