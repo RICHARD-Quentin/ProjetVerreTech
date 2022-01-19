@@ -45,7 +45,7 @@ export default class UserService implements IService {
     }
 
     async find(parameters?: any): Promise<any[]> {
-        return Promise.resolve([]);
+        return db.adresse.findAll(parameters)
     }
 
     async findAndCount(parameters?: any): Promise<{ rows: any[]; count: number }> {
@@ -62,6 +62,13 @@ export default class UserService implements IService {
 
     async update(id: number, data?: any): Promise<any> {
         return this.model.update(data, {where: {id_client: id}})
+    }
+
+    async findFacturationAdresse(id: number): Promise<any> {
+        return db.adresse.findAll({where: {
+                id_client: id,
+                is_facturation: true,
+            }})
     }
 
 }

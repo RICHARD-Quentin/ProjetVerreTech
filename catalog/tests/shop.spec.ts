@@ -21,12 +21,14 @@ describe('Create a shop', () => {
     it('should return response of shop created', async () => {
     token = await GenerateToken() 
       return  chai.request(app)
-      .post("/shop")
+      .post("/catalog/shop")
       .set('Authorization', `Bearer ${token}`)
       .send({
         "intitule": "Boutique UnitTest",
         "enseigne": "Boutique UnitTest",       
-        "adresse_magasin": "1 rue des tests"
+        "adresse_magasin": "1 rue des tests",
+        "lat": 46.948052,
+        "lng": 2.452533
     }).then(res => 
         {           
             VerifyResponseFormApi(res.body)
@@ -44,7 +46,7 @@ describe('Create a shop', () => {
 describe('Get a shop', () => {
     it('get shop created', () => {
       return chai.request(app)
-      .get(`/shop/${id_boutique}`)
+      .get(`/catalog/shop/${id_boutique}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
@@ -71,7 +73,7 @@ describe('Get a shop', () => {
 describe('Get shop list', () => {
     it('get list of shops', () => {
       return chai.request(app)
-      .get(`/shop`)
+      .get(`/catalog/shop`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
@@ -88,13 +90,15 @@ describe('Get shop list', () => {
 describe('Modifiy a shop', () => {
     it('should return response of shop updated', () => {
       return chai.request(app)
-      .put(`/shop/${id_boutique}`)
+      .put(`/catalog/shop/${id_boutique}`)
       .set('Authorization', `Bearer ${token}`)
       .send(
           {
             "intitule": "Boutique UnitTest",
             "enseigne": "Boutique UnitTest Updated",
-            "adresse_magasin": "1 rue des tests"
+            "adresse_magasin": "1 rue des tests",
+            "lat": 46.948052,
+            "lng": 2.452533
         })
       .then(res => 
         {
@@ -112,7 +116,7 @@ describe('Modifiy a shop', () => {
 describe('Delete a shop', () => {
     it('should return response of shop created', () => {
       return chai.request(app)
-      .delete(`/shop/${id_boutique}`)
+      .delete(`/catalog/shop/${id_boutique}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {

@@ -28,7 +28,7 @@ describe('Get all orders', () => {
       token = await GenerateToken() 
       console.log(token)
       const res = await chai.request(app)
-      .get("/order")
+      .get("/logistic/order")
       .set('Authorization', `Bearer ${token}`)
 
           VerifyResponseFormApi(res.body)     
@@ -47,7 +47,7 @@ describe('Get all orders', () => {
 describe('Get a order', () => {
   it('should return order with id', () => {
     return chai.request(app)
-    .get(`/order/${orderId}`)
+    .get(`/logistic/order/${orderId}`)
     .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
@@ -73,7 +73,7 @@ describe('Get a order', () => {
 describe('Get orders of customer', () => {
   it('should return orders list of customer with an id', () => {
     return chai.request(app)
-    .get(`/order/client/${id_client}`)
+    .get(`/logistic/order/client/${id_client}`)
     .set('Authorization', `Bearer ${token}`)
       .then(res => 
       {
@@ -91,7 +91,7 @@ describe('Get orders of customer', () => {
 describe('Create an order', () => {
   it('should return response of order created', () => {
     return chai.request(app)
-    .post("/order")
+    .post("/logistic/order")
     .set('Authorization', `Bearer ${token}`)
     //.set({ Authorization: `Bearer ${token}` })
     .send(

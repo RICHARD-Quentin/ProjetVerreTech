@@ -1,4 +1,4 @@
-// lib/controllers/nodes.controller.ts
+// lib/controllers/nodes.controllers.ts
 import {Request, Response} from "express";
 import {TemplateService} from "../services/template.service";
 import {

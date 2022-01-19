@@ -7,10 +7,10 @@ import type { ville, villeId } from './ville';
 export interface adresseAttributes {
   id_adresse: number;
   id_client: number;
-  pays: string;
-  ville: string;
+  id_pays?: number;
+  id_ville?: number;
   adresse: string;
-  code_postal: string;
+  is_facturation: boolean;
 }
 
 export type adressePk = "id_adresse";
@@ -20,10 +20,10 @@ export type adresseCreationAttributes = Optional<adresseAttributes, adressePk>;
 export class adresse extends Model<adresseAttributes, adresseCreationAttributes> implements adresseAttributes {
   id_adresse!: number;
   id_client!: number;
-  pays!: string;
-  ville!: string;
+  id_pays?: number;
+  id_ville?: number;
   adresse!: string;
-  code_postal!: string;
+  is_facturation!: boolean;
 
   // adresse belongsTo client via id_client
   id_client_client!: client;
@@ -57,20 +57,28 @@ export class adresse extends Model<adresseAttributes, adresseCreationAttributes>
         key: 'id_client'
       }
     },
-    pays: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    id_pays: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'pays',
+        key: 'id_pays'
+      }
     },
-    ville: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    id_ville: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'ville',
+        key: 'id_ville'
+      }
     },
     adresse: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    code_postal: {
-      type: DataTypes.STRING(50),
+    is_facturation: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {

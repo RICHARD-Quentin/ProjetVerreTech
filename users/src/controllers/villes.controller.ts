@@ -1,12 +1,13 @@
 import {Request, Response} from "express";
-import AdresseService from "../services/adresse.service";
+import AdresseService from "../services/villes.service";
 import IService from "interfaces/src/IService";
 import {ICommonDataRes, ICommonResFailed, ICommonResSuccess} from "interfaces/src/IResponse";
 import {models as db , sequelize} from '../../../common/database'
 import {Error} from "sequelize";
+import VillesService from "../services/villes.service";
 
-class AdresseController {
-    public service: IService = new AdresseService
+class VillesController {
+    public service: IService = new VillesService
 
     async search(req: Request, res: Response): Promise<Response>
     {
@@ -14,15 +15,14 @@ class AdresseController {
         const limit = parseInt(<string>query.limit) > 0 ? parseInt(<string>query.limit) : 10
         const skip = parseInt(<string>query.skip) > 0 ? parseInt(<string>query.skip) : 0
 
-        const result = await this.service.findAndCount({
+        const result = await this.service.find({
             limit,
             skip,
             query
         })
 
         return res.status(200).json({
-            data: result.rows,
-            total: result.count
+            data: result,
         } as ICommonDataRes)
     }
 
@@ -36,7 +36,7 @@ class AdresseController {
         } catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors ,
             } as ICommonResFailed)
         }
     }
@@ -60,7 +60,7 @@ class AdresseController {
         } catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors ,
             } as ICommonResFailed)
         }
     }
@@ -100,25 +100,25 @@ class AdresseController {
         catch (err: any) {
             return res.status(402).json({
                 message: err.name,
-                validations: this.getValidation(err.errors) ,
+                validations: err.errors ,
             } as ICommonResFailed)
         }
     }
 
-    private getValidation(errors: Array<any>): Array<any> {
-        const validations = errors.map( error => {
-            const validation = []
-            const key = error.path
-            const message = error.message
-
-            validation[key] = message
-
-            return { ...validation }
-        })
-        return validations
-    }
+    // private getValidation(errors: Array<any>): Array<any> {
+    //     const validations = errors.map( error => {
+    //         const validation = []
+    //         const key = error.path
+    //         const message = error.message
+    //
+    //         validation[key] = message
+    //
+    //         return { ...validation }
+    //     })
+    //     return validations
+    // }
 
 }
 
-export const adresseController = new AdresseController()
+export const villeController = new VillesController()
 

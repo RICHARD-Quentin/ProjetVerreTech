@@ -20,7 +20,7 @@ describe('Create a article', () => {
     it('should return response of article created',async () => {
         token = await GenerateToken() 
       return  chai.request(app)
-      .post("/article")
+      .post("/catalog/article")
       .set('Authorization', `Bearer ${token}`)
       .send({
         "intitule_article": "Article UnitTest",
@@ -51,7 +51,7 @@ describe('Create a article', () => {
 describe('Update a article', () => {
     it('should return response of shop updated', () => {
       return chai.request(app)
-      .put(`/article/${code_article}`)
+      .put(`/catalog/article/${code_article}`)
       .set('Authorization', `Bearer ${token}`)
       .send(
           {
@@ -81,7 +81,7 @@ describe('Update a article', () => {
 describe('Get a article', () => {
     it('get a article', () => {
       return chai.request(app)
-      .get(`/article/${code_article}`)
+      .get(`/catalog/article/${code_article}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
@@ -108,12 +108,12 @@ describe('Get a article', () => {
 describe('Get all articles', () => {   
     it('get all articles', () => {
       return chai.request(app)
-      .get(`/article`)
+      .get(`/catalog/article`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {            
             VerifyResponseFormApi(res.body)
-            chai.expect(res.body.response).to.be.a("array")                        
+            chai.expect(res.body.response.rows).to.be.a("array")                        
         })
         .catch((err) =>{
             VerifyResponseFormApi(err.response.body)           
@@ -124,7 +124,7 @@ describe('Get all articles', () => {
 describe('Delete article', () => {
     it('should return response of shop deleted', () => {
       return chai.request(app)
-      .delete(`/article/${code_article}`)
+      .delete(`/catalog/article/${code_article}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {

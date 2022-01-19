@@ -22,7 +22,7 @@ describe('Get comments list', () => {
     it('should return response of list of comments article', async () => {
     token = await GenerateToken() 
     return  chai.request(app)
-      .get("/comment")
+      .get("/catalog/comment")
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {           
@@ -48,7 +48,7 @@ describe('Get comments list', () => {
 describe('Get comment', () => {
     it('should return response of comment of article', () => {
         return  chai.request(app)
-          .get(`/comment/${code_article ?? 9999999}`)
+          .get(`/catalog/comment/${code_article ?? 9999999}`)
           .set('Authorization', `Bearer ${token}`)
           .then(res => 
             {           
@@ -74,7 +74,7 @@ describe('Get comment', () => {
 describe('Create a comment', () => {
     it('should return response of comment created', () => {
         return  chai.request(app)
-          .post(`/comment`)
+          .post(`/catalog/comment`)
           .set('Authorization', `Bearer ${token}`)
           .send({
             "code_article": code_article ?? 9999999,
@@ -114,7 +114,7 @@ describe('Create a comment', () => {
 describe('Update a comment', () => {
     it('should return response of comment updated', () => {
         return  chai.request(app)
-          .put(`/comment/${id_commentaire}`)
+          .put(`/catalog/comment/${id_commentaire}`)
           .set('Authorization', `Bearer ${token}`)
           .send({
             "code_article": code_article ?? 9999999,
@@ -143,7 +143,7 @@ describe('Update a comment', () => {
 describe('Delete a comment', () => {
     it('should return response of shop created', () => {
       return chai.request(app)
-      .delete(`/comment/${id_commentaire}`)
+      .delete(`/catalog/comment/${id_commentaire}`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => 
         {
