@@ -70,12 +70,22 @@
 					},
 					"adresse_magasin": {
 						"type": "string"
+					},
+					"lat": {
+						"type": "number",
+						"format": "double"
+					},
+					"lng": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
 					"intitule",
 					"enseigne",
-					"adresse_magasin"
+					"adresse_magasin",
+					"lat",
+					"lng"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -270,10 +280,44 @@
 					{
 						"in": "query",
 						"name": "id_boutique",
-						"required": true,
+						"required": false,
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "commandable",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderby",
+						"required": false,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]

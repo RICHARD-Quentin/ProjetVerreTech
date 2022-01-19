@@ -23,7 +23,8 @@ export type Order = {
     id_client : number,
     date_retrait : Date,
     contents : Array<content>,
-    payment:{method:PaymentMethod,params:object,id_client : number}
+    payment:{method:PaymentMethod,params:object,id_client : number},
+    invoice: {id_pays:number,id_ville:number,adresse:string}
 }
 
 export type content = {
@@ -71,4 +72,22 @@ export const OrderSchema :Schema= {
         errorMessage: 'Payment method is wrong or missing',
         isString: true,
     },
+    'invoice.id_pays': 
+    {
+        in: ['body'],
+        errorMessage: 'id_pays of invoice is wrong or missing',
+        isNumeric: true
+    },
+    'invoice.id_ville': 
+    {
+        in: ['body'],
+        errorMessage: 'id_ville is wrong or missing in invoice object',
+        isNumeric: true,
+    },
+    'invoice.adresse': 
+    {
+        in: ['body'],
+        errorMessage: 'adresse is wrong or missing in invoice object',
+        isString: true,
+    }
 }
