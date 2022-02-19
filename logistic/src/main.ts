@@ -24,7 +24,7 @@ app.use(StockRouter,checkJwt.unless({ path: ['stock/shop/:id', '/stock/:shop'], 
 app.use(OrdersRouter,checkJwt)
 
 app.listen(3001, () => {
-    console.log('started');
+    console.log('Listening on port 3001');
   });
 
 export default app 

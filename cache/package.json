@@ -8,7 +8,7 @@
     "test": "mocha --timeout 80000 --exit -r  ts-node/register ./tests/**/*.spec.ts ",
     "swagger": "tsoa spec",
     "dev": "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon dist/cache/src/main.js\"",
-    "start": "tsc && node dist/catalog/src/main.js"
+    "start": "tsc && node dist/cache/src/main.js"
   },
   "keywords": [],
   "author": "",

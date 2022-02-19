@@ -1,89 +1,62 @@
-version: '2'
-
+version: '3.8'
 services:
-
-  store:
-    build: ./store
-    container_name: vt_store
+  #SERVICE_CATALOG
+  service_catalog:
+    image: node:14-alpine
+    container_name: "service_catalog"
+    restart: always
+    networks:
+      - verretech_network
     volumes:
-      - "./store:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3001:3000"
-    # command: npm run start
-    command: npm start
-
-  authentification:
-    build: user
-    container_name: vt_authentification
+      - "./catalog:/src/app/catalog"
+      - "./common:/src/app/common:ro"
+    working_dir: "/src/app/catalog"
+    command: "npm run start"
+  #SERVICE_LOGISTIC
+  service_logistic:
+    image: node:14-alpine
+    container_name: "service_logistic"
+    restart: always
+    networks:
+      - verretech_network
     volumes:
-      - "./user:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3002:3000"
-    # command: npm run start
-    command: npm start
-
-  catalog:
-    build: ./catalog
-    container_name: vt_catalog
+      - "./logistic:/src/app/logistic"
+      - "./common:/src/app/common:ro"
+    working_dir: "/src/app/logistic"
+    command: "npm run start"
+  #SERVICE_USERS
+  service_users:
+    image: node:14-alpine
+    container_name: "service_users"
+    restart: always
+    networks:
+      - verretech_network
     volumes:
-      - "./catalog:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3003:3000"
-    # command: npm run start
-    command: npm start
-
-  order:
-    build: ./order
-    container_name: vt_order
+      - "./users:/src/app/users"
+      - "./common:/src/app/common:ro"
+    working_dir: "/src/app/users"
+    command: "npm run start"
+  #SERVICE_CACHE
+  service_cache:
+    image: node:14-alpine
+    container_name: "service_cache"
+    restart: always
+    networks:
+      - verretech_network
     volumes:
-      - "./order:/src/app"
-      - "./common:/common"
-    working_dir: "/src/app"
-    ports:
-      - "3004:3000"
-    # command: npm run start
-    command: npm start
-
-  payement:
-    build: ./payement
-    container_name: vt_payement
-    volumes:
-      - "./payement:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3005:3000"
-    # command: npm run start
-    command: npm start
-
-  stock:
-    build: ./stock
-    container_name: vt_stock
-    volumes:
-      - "./stock:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3006:3000"
-    # command: npm run start
-    command: npm start
-
-  users:
-    build: ./users
-    container_name: vt_users
-    volumes:
-      - "./users:/src/app"
-      - "./common:/src/app/common"
-    working_dir: "/src/app"
-    ports:
-      - "3007:3000"
-    command: npm start
-
-volumes:
-  common:
+      - "./cache:/src/app/cache"
+      - "./common:/src/app/common:ro"
+    working_dir: "/src/app/cache"
+    command: "npm run start"
+    depends_on:
+    - db_cache_redis
+  #DB_CACHE_REDIS
+  db_cache_redis:
+    image: redis:6.2-alpine
+    container_name: "db_cache_redis"
+    restart: always
+    networks:
+      - verretech_network
+networks:
+  verretech_network:
+    external: false

@@ -1,5 +1,5 @@
 import {createClient} from 'redis'
-    const redisClient = createClient()
+    const redisClient = createClient( {url : "redis://db_cache_redis:6379"})
     redisClient.connect()
     redisClient.on('error', (err) => console.log('Redis Client Error', err));
 

@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
-import AdresseService from "../services/villes.service";
-import IService from "interfaces/src/IService";
-import {ICommonDataRes, ICommonResFailed, ICommonResSuccess} from "interfaces/src/IResponse";
+import IService from "../../../common/interfaces/src/IService";
+import {ICommonDataRes, ICommonResFailed, ICommonResSuccess} from "../../../common/interfaces/src/IResponse";
 import {models as db , sequelize} from '../../../common/database'
 import {Error} from "sequelize";
 import PaysService from "../services/pays.service";
