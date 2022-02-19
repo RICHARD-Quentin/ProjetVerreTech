@@ -58,5 +58,6 @@ services:
     networks:
       - verretech_network
 networks:
-  verretech_network:
-    external: false
+  verretech_network: 
+    external: 
+      name: verretech_network
