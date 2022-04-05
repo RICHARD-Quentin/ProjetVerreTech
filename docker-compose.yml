@@ -2,52 +2,40 @@ version: '3.8'
 services:
   #SERVICE_CATALOG
   service_catalog:
-    image: node:14-alpine
+    build:
+      context: ./
+      dockerfile: ./catalog/Dockerfile
     container_name: "service_catalog"
     restart: always
     networks:
       - verretech_network
-    volumes:
-      - "./catalog:/src/app/catalog"
-      - "./common:/src/app/common:ro"
-    working_dir: "/src/app/catalog"
-    command: "npm run start"
   #SERVICE_LOGISTIC
   service_logistic:
-    image: node:14-alpine
+    build:
+      context: ./
+      dockerfile: ./logistic/Dockerfile
     container_name: "service_logistic"
     restart: always
     networks:
       - verretech_network
-    volumes:
-      - "./logistic:/src/app/logistic"
-      - "./common:/src/app/common:ro"
-    working_dir: "/src/app/logistic"
-    command: "npm run start"
   #SERVICE_USERS
   service_users:
-    image: node:14-alpine
+    build:
+      context: ./
+      dockerfile: ./users/Dockerfile
     container_name: "service_users"
     restart: always
     networks:
       - verretech_network
-    volumes:
-      - "./users:/src/app/users"
-      - "./common:/src/app/common:ro"
-    working_dir: "/src/app/users"
-    command: "npm run start"
   #SERVICE_CACHE
   service_cache:
-    image: node:14-alpine
+    build:
+      context: ./
+      dockerfile: ./cache/Dockerfile
     container_name: "service_cache"
     restart: always
     networks:
       - verretech_network
-    volumes:
-      - "./cache:/src/app/cache"
-      - "./common:/src/app/common:ro"
-    working_dir: "/src/app/cache"
-    command: "npm run start"
     depends_on:
     - db_cache_redis
   #DB_CACHE_REDIS
