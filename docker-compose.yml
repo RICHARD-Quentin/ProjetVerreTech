@@ -6,6 +6,7 @@ services:
       replicas: 2
       placement:
         max_replicas_per_node: 1
+    image: node:14-alpine
     build:
       context: ./
       dockerfile: ./catalog/Dockerfile
@@ -19,6 +20,7 @@ services:
       replicas: 2
       placement:
         max_replicas_per_node: 1
+    image: node:14-alpine
     build:
       context: ./
       dockerfile: ./logistic/Dockerfile
@@ -32,6 +34,7 @@ services:
       replicas: 2
       placement:
         max_replicas_per_node: 1
+    image: node:14-alpine
     build:
       context: ./
       dockerfile: ./users/Dockerfile
@@ -45,6 +48,7 @@ services:
       replicas: 2
       placement:
         max_replicas_per_node: 1
+    image: node:14-alpine
     build:
       context: ./
       dockerfile: ./cache/Dockerfile
