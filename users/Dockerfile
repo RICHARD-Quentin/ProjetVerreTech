@@ -6,7 +6,7 @@ COPY ./users/package.json .
 RUN npm install
 
 COPY ./users /src/app/users
-COPY ../common /src/app/common
+COPY ./common /src/app/common
 RUN npm run build
 
 EXPOSE 3000
