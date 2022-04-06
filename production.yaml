@@ -2,6 +2,11 @@ version: '3.8'
 services:
   #SERVICE_CATALOG
   service_catalog:
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+    image: service_catalog
     build:
       context: ./
       dockerfile: ./catalog/Dockerfile
@@ -11,6 +16,11 @@ services:
       - verretech_network
   #SERVICE_LOGISTIC
   service_logistic:
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+    image: service_logistic
     build:
       context: ./
       dockerfile: ./logistic/Dockerfile
@@ -20,6 +30,11 @@ services:
       - verretech_network
   #SERVICE_USERS
   service_users:
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+    image: service_users
     build:
       context: ./
       dockerfile: ./users/Dockerfile
@@ -29,6 +44,11 @@ services:
       - verretech_network
   #SERVICE_CACHE
   service_cache:
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+    image: service_cache
     build:
       context: ./
       dockerfile: ./cache/Dockerfile
@@ -40,6 +60,10 @@ services:
     - db_cache_redis
   #DB_CACHE_REDIS
   db_cache_redis:
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
     image: redis:6.2-alpine
     container_name: "db_cache_redis"
     restart: always
