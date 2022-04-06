@@ -5,7 +5,8 @@ services:
     build:
       context: ./
       dockerfile: ./catalog/Dockerfile
-    container_name: "service_catalog"
+    image: service_catalog
+    container_name: service_catalog
     restart: always
     networks:
       - verretech_network
@@ -14,7 +15,8 @@ services:
     build:
       context: ./
       dockerfile: ./logistic/Dockerfile
-    container_name: "service_logistic"
+    image: service_logistic
+    container_name: service_logistic
     restart: always
     networks:
       - verretech_network
@@ -23,7 +25,8 @@ services:
     build:
       context: ./
       dockerfile: ./users/Dockerfile
-    container_name: "service_users"
+    image: service_users
+    container_name: service_users
     restart: always
     networks:
       - verretech_network
@@ -32,7 +35,8 @@ services:
     build:
       context: ./
       dockerfile: ./cache/Dockerfile
-    container_name: "service_cache"
+    image: service_cache
+    container_name: service_cache
     restart: always
     networks:
       - verretech_network
