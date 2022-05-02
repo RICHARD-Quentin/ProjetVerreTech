@@ -7,6 +7,13 @@ var verifytoken = require('../middleware/auth');
 var UserController = require('../controllers/users')
 var StoreController = require('../controllers/store')
 var ArticleController = require('../controllers/article')
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+});
+
+router.use(limiter)
 
 router.route('/').get(function(req, res)
     {
