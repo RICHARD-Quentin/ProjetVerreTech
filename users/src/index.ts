@@ -10,6 +10,13 @@ const allowedOrigins =['http://localhost:3000'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins
 };
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 5
+});
+
+index.use(limiter)
 index.use(cors(options));
 
 

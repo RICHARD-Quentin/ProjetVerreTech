@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize')
 const db = {}
+require('dotenv').config()
 
-const sequelize = new Sequelize('verretech-erp-db', 'fenrirproject', 'fenrirproject2020', {
+const sequelize = new Sequelize('verretech-erp-db', process.env.DB_USERNAME, process.env.DB_PWD, {
   host: 'database',
   port:'3306',
   dialect: 'mysql', 
