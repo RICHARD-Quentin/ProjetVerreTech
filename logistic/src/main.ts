@@ -13,6 +13,14 @@ const allowedOrigins = ['http://localhost:3001','http://localhost:3000'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins
 };
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+});
+
+app.use(limiter)
+
 app.use(cors(options));
 
 app.use(express.json())
