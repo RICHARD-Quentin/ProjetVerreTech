@@ -7,8 +7,8 @@ var verifytoken = require('../middleware/auth');
 var UserController = require('../controllers/users')
 var StoreController = require('../controllers/store')
 var ArticleController = require('../controllers/article')
-var RateLimit = require('express-rate-limit');
-var limiter = new RateLimit({
+import rateLimit from 'express-rate-limit'
+const limiter = rateLimit({
     windowMs: 1*60*1000, // 1 minute
     max: 5
 });
