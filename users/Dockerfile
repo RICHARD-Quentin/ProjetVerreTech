@@ -1,14 +1,14 @@
 FROM node:14-alpine
 
-WORKDIR /src/app/catalog
+WORKDIR /src/app/users
 
-COPY ./catalog/package.json .
+COPY ./users/package.json .
 RUN npm install
 
-COPY ./catalog /src/app/catalog
+COPY ./users /src/app/users
 COPY ./common /src/app/common
 RUN npm run build
 
-EXPOSE 3002
+EXPOSE 3000
 
 ENTRYPOINT [ "npm", "start" ]

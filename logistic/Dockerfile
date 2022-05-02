@@ -1,21 +1,14 @@
-FROM node
+FROM node:14-alpine
 
-# Create index directory
-WORKDIR /usr/src/index
+WORKDIR /src/app/logistic
 
-# Install index dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-
-
+COPY ./logistic/package.json .
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
-# Bundle index source
-COPY . .
+COPY ./logistic /src/app/logistic
+COPY ./common /src/app/common
+RUN npm run build
 
-EXPOSE 3004
+EXPOSE 3001
 
-CMD [ "node", "server.js" ]
+ENTRYPOINT [ "npm", "start" ]
