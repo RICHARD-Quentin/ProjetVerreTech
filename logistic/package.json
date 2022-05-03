@@ -27,7 +27,7 @@
     "mysql2": "^2.3.0",
     "node-env": "^0.1.6",
     "paypal-rest-sdk": "^1.8.1",
-    "sequelize": "^6.11.0",
+    "sequelize": "^6.19.0",
     "swagger-ui": "^4.10.3",
     "swagger-ui-express": "^4.3.0",
     "tsoa": "^3.14.0",
