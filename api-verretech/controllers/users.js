@@ -39,7 +39,7 @@ exports.updateUser = function(req, res) {
       .then(function () {})
       .catch(err=>res.send("User not found",404))
     }
-  }).catch(err=>res.send('Une erreur est survenue : ' + err.message,400))
+  }).catch(err=>res.send("Une erreur est survenue" ,400))
 };
 
 exports.createUser = function(req, res) {
@@ -135,7 +135,7 @@ exports.getLogsUser = function(req, res) {
         {
             res.status(400).send("Invalid user supplied")
         }     
-    }).catch(err=>res.status(400).send('Une erreur est survenue : ' +  err.message));
+    }).catch(err=>res.status(400).send("Une erreur est survenue"));
    
 };
 
