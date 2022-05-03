@@ -17,7 +17,13 @@ let users = {
     coralie: {password:"fenrirproject"},
     quentin: {password:"fenrirproject"}
 }
+import rateLimit from 'express-rate-limit'
+const limiter = rateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+});
 
+router.use(limiter)
 router.route('/').get(verifytoken,function(req, res)
     {
         let rawdata = fs.readFileSync('./swagger.json');

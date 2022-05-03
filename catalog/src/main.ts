@@ -16,11 +16,11 @@ const allowedOrigins = ['http://localhost:3002','http://localhost:3000'];
 const options: cors.CorsOptions = {
   origin: allowedOrigins
 };
-var RateLimit = require('express-rate-limit');
-var limiter = new RateLimit({
-    windowMs: 1*60*1000, // 1 minute
-    max: 5
-});
+import rateLimit from 'express-rate-limit'
+const limiter = rateLimit({
+    windowMs: 60*1000, // 1 minute
+    max: 35
+})
 
 app.use(limiter)
 app.use(cors(options));
