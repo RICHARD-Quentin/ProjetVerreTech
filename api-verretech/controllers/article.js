@@ -1,6 +1,9 @@
 const db  = require('../config/db.js');
 var fs = require('fs');
 const { nextTick } = require('process');
+const url = require("url");
+var sanitize = require("sanitize-filename")
+
 
 exports.findArticleById = async(req, res,next) =>{
     const idParsed= parseInt(req.params.id)
@@ -93,7 +96,8 @@ exports.FindsArticleByStatus = function(req, res) {
 };
 
 exports.GetImageUrl = function(req,res) {
-    fs.readFile('./images/'+req.params.id, (err, data) => {
+    const path = './images/'+req.params.id
+    fs.readFile(sanitize(path) , (err, data) => {
         if (err){return res.status(404).send("File not found.")}
         res.set('Content-Type', 'image/png');
         res.status(200).send(data)
