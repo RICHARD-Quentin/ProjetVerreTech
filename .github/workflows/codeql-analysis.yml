@@ -14,6 +14,10 @@ name: "CodeQL"
 on:
   push:
     branches: [ main, develop, Review, security ]
+    paths-ignore:
+      - common/template
+      - common/interfaces
+      - common/structure
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main ]
