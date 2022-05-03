@@ -29,7 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './catalog/package-lock.json'
+        cache-dependency-path: '**/package-lock.json'
     - run: npm install -g npm
     - run: npm --prefix ../common/database ci
     - run: npm --prefix ../common/auth ci
@@ -57,7 +57,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './logistic/package-lock.json'
+        cache-dependency-path: '**/package-lock.json'
     - run: npm install -g npm
     - run: npm --prefix ../common/database ci
     - run: npm --prefix ../common/auth ci
