@@ -29,11 +29,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './package-lock.json'
-    - run: npm --prefix ../common/database ci
-    - run: npm --prefix ../common/auth ci
-    - run: npm --prefix ../common/controllers ci
-    - run: npm ci
+        cache-dependency-path: '**/package-lock.json'
+    - run: npm cache clean -f
+    - run: npm install -g npm
+    - run: npm --prefix ../common/database i
+    - run: npm --prefix ../common/auth i
+    - run: npm --prefix ../common/controllers i
+    - run: npm i
     - run: npm run build --if-present
     - run: npm run test
 
@@ -56,11 +58,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './package-lock.json'
-    - run: npm --prefix ../common/database ci
-    - run: npm --prefix ../common/auth ci
-    - run: npm --prefix ../common/controllers ci
-    - run: npm ci
+        cache-dependency-path: '**/package-lock.json'
+    - run: npm cache clean -f
+    - run: npm install -g npm
+    - run: npm --prefix ../common/database i
+    - run: npm --prefix ../common/auth i
+    - run: npm --prefix ../common/controllers i
+    - run: npm i
     - run: npm run build --if-present
     - run: npm test
 
