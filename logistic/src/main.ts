@@ -15,8 +15,8 @@ const options: cors.CorsOptions = {
 };
 import rateLimit from 'express-rate-limit'
 const limiter = rateLimit({
-    windowMs: 5*60*1000, // 1 minute
-    max: 5
+    windowMs: 1*60*1000, // 1 minute
+    max: 35
 });
 
 app.use(limiter)

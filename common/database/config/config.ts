@@ -1,10 +1,5 @@
 import {Options, Dialect, Sequelize } from 'sequelize'
-import * as dotenv from "dotenv"
-import path from "path";
 const mysql:Dialect = "mysql"
-const username = process.env.DEV_USERNAME
-console.log('process.env', process.env.NODE_ENV)
-console.log('dirname', __dirname + '/.env')
 
 export default
 {
