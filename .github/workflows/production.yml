@@ -24,7 +24,7 @@ jobs:
             cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
             git pull origin master
             docker-compose build
-            docker stack up -c
+            docker stack up -c production.yaml verretechfrontend
 
   back:
     name: back
@@ -41,4 +41,4 @@ jobs:
             cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
             git pull origin master
             docker-compose build
-            docker stack up -c
+            docker stack up -c production.yaml verretechbackend
