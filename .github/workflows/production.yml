@@ -20,7 +20,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script : |
-            cd /home/admin/cesi/verre-tech 
+            cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
+            git pull origin master
+            docker-compose build
+            docker stack up -c
+            cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
             git pull origin master
             docker-compose build
             docker stack up -c
