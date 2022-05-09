@@ -8,11 +8,15 @@ on :
       
 jobs:
   update:
-    uses: appleboy/ssh-action@master
-    with:
-      host: ${{ secrets.SSH_HOST }}
-      username: ${{ secrets.SSH_USER }}
-      password: ${{ secrets.SSH_PASSWORD }}
-      script : |
-        cd /home/admin/cesi/verre-tech 
-        ls -lisah
+    name: update
+    runs-on: ubuntu-latest
+    steps:
+      - name: multiple command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script : |
+            cd /home/admin/cesi/verre-tech 
+            ls -lisah
