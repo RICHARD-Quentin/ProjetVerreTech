@@ -1,4 +1,4 @@
-- name: Deploy to Docker swarm
+name: Deploy to Docker swarm
 
 on : 
   workflow_run: 
@@ -6,16 +6,13 @@ on :
     types :
       - completed
       
-  jobs:
-    update:
-      uses: wshihadeh/docker-deployment-action@v1
-      with:
-        remote_docker_host: user@myswarm.com
-        ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-        ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
-        deployment_mode: docker-swarm
-        copy_stack_file: true
-        deploy_path: /root/my-deployment
-        stack_file_name: docker-compose.yaml
-        keep_files: 5
-        args: my_applicaion
+jobs:
+  update:
+    uses: appleboy/ssh-action@master
+    with:
+      host: ${{ secrets.SSH_HOST }}
+      username: ${{ secrets.SSH_USER }}
+      password: ${{ secrets.SSH_PASSWORD }}
+      script : |
+        cd /home/admin/cesi/verre-tech 
+        ls -lisah
