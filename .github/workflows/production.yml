@@ -9,8 +9,8 @@ on :
     branches: [ main, develop ]
     
 jobs:
-  update:
-    name: update
+  front:
+    name: front
     runs-on: ubuntu-latest
     steps:
       - name: multiple command
@@ -24,6 +24,18 @@ jobs:
             git pull origin master
             docker-compose build
             docker stack up -c
+
+  back:
+    name: back
+    runs-on: ubuntu-latest
+    steps:
+      - name: multiple command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script : |
             cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
             git pull origin master
             docker-compose build
