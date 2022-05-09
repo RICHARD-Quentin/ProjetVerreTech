@@ -1,11 +1,13 @@
 name: Deploy to Docker swarm
 
 on : 
-  workflow_run: 
-    workflows: [Node.js CI]
-    types :
-      - completed
-      
+#   workflow_run: 
+#     workflows: [Node.js CI]
+#     types :
+#       - completed
+  push:
+    branches: [ main, develop ]
+    
 jobs:
   update:
     name: update
