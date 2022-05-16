@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script : |
             cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
-            git pull origin master
+            git pull origin main
             docker-compose build
             docker stack up -c production.yaml verretechfrontend
 
@@ -37,6 +37,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script : |
             cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
-            git pull origin master
+            git pull origin main
             docker-compose build
             docker stack up -c production.yaml verretechbackend
