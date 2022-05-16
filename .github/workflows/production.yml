@@ -21,7 +21,7 @@ jobs:
           script : |
             cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
             git pull origin main
-            docker-compose build
+            docker-compose build --with-registry-auth
             docker stack up -c production.yaml verretechfrontend
 
   back:
@@ -38,5 +38,5 @@ jobs:
           script : |
             cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
             git pull origin main
-            docker-compose build
+            docker-compose build --with-registry-auth
             docker stack up -c production.yaml verretechbackend
