@@ -10,7 +10,7 @@ jobs:
   front:
     name: front
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: multiple command
         uses: appleboy/ssh-action@master
@@ -27,7 +27,7 @@ jobs:
   back:
     name: back
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: multiple command
         uses: appleboy/ssh-action@master
