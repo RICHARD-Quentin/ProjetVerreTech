@@ -10,30 +10,30 @@ on :
 
     
 jobs:
-  front:
-    name: front
+#   front:
+#     name: front
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 60
+#     steps:
+#       - name: multiple command
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USER }}
+#           password: ${{ secrets.SSH_PASSWORD }}
+#           script : |
+#             cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
+#             git pull origin main
+#             docker-compose build
+#             docker stack deploy -c production.yaml verretechfrontend --prune --with-registry-auth
+#             docker service update --force verretechfrontend_front
+  
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: multiple command
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script : |
-            cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
-            git pull origin main
-            docker-compose build
-            docker stack deploy -c production.yaml verretechfrontend --prune --with-registry-auth
-            docker service update --force verretechfrontend_front
-
-  back:
-    name: back
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: multiple command
+      - name: build
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -44,8 +44,22 @@ jobs:
             git pull origin main
             docker-compose build
             docker stack deploy -c production.yaml verretechbackend --prune --with-registry-auth
-            docker service update --force verretechbackend_db_cache_redis
-            docker service update --force verretechbackend_service_cache
-            docker service update --force verretechbackend_service_catalog
-            docker service update --force verretechbackend_service_logistic
-            docker service update --force verretechbackend_service_users
+            
+  update:
+    name: update
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        service : [verretechbackend_db_cache_redis, verretechbackend_service_cache, verretechbackend_service_catalog, verretechbackend_service_logistic, verretechbackend_service_users]
+          
+    steps:
+      - name: update
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script : |
+            cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
+            docker service update --force ${{ matrix.service }}
