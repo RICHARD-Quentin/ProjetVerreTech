@@ -26,6 +26,7 @@ jobs:
             git pull origin main
             docker-compose build
             docker stack deploy -c production.yaml verretechfrontend --prune --with-registry-auth
+            docker service update --force verretechfrontend_front
 
   back:
     name: back
@@ -43,3 +44,8 @@ jobs:
             git pull origin main
             docker-compose build
             docker stack deploy -c production.yaml verretechbackend --prune --with-registry-auth
+            docker service update --force verretechbackend_db_cache_redis
+            docker service update --force verretechbackend_service_cache
+            docker service update --force verretechbackend_service_catalog
+            docker service update --force verretechbackend_service_logistic
+            docker service update --force verretechbackend_service_users
