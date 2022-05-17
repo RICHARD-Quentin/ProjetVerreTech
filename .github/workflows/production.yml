@@ -25,7 +25,7 @@ jobs:
             cd /home/admin/cesi/verre-tech/ProjetVerreTechFront
             git pull origin main
             docker-compose build
-            docker stack up -c production.yaml verretechfrontend --prune
+            docker stack deploy -c production.yaml verretechfrontend --prune --with-registry-auth
 
   back:
     name: back
@@ -42,4 +42,4 @@ jobs:
             cd /home/admin/cesi/verre-tech/ProjetVerreTechBack
             git pull origin main
             docker-compose build
-            docker stack up -c production.yaml verretechbackend --prune
+            docker stack deploy -c production.yaml verretechbackend --prune --with-registry-auth
