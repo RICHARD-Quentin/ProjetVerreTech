@@ -1,4 +1,4 @@
-import IService from "interfaces/src/IService";
+import IService from "../../../common/interfaces/src/IService";
 import {CreateOptions, Model, Op, where} from "sequelize";
 import {models as db , sequelize} from '../../../common/database'
 
