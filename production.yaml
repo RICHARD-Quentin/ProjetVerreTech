@@ -4,13 +4,13 @@ services:
   service_catalog:
     deploy:
       replicas: 2
-      placement:
-        max_replicas_per_node: 1
     image: service_catalog
     build:
       context: ./
       dockerfile: ./catalog/Dockerfile
     container_name: "service_catalog"
+    ports:
+      - "3002:3002"
     restart: always
     networks:
       - verretech_network
@@ -18,42 +18,42 @@ services:
   service_logistic:
     deploy:
       replicas: 2
-      placement:
-        max_replicas_per_node: 1
     image: service_logistic
     build:
       context: ./
       dockerfile: ./logistic/Dockerfile
     container_name: "service_logistic"
     restart: always
+    ports:
+      - "3001:3001"
     networks:
       - verretech_network
   #SERVICE_USERS
   service_users:
     deploy:
       replicas: 2
-      placement:
-        max_replicas_per_node: 1
     image: service_users
     build:
       context: ./
       dockerfile: ./users/Dockerfile
     container_name: "service_users"
     restart: always
+    ports:
+      -  "3003:3003"
     networks:
       - verretech_network
   #SERVICE_CACHE
   service_cache:
     deploy:
       replicas: 2
-      placement:
-        max_replicas_per_node: 1
     image: service_cache
     build:
       context: ./
       dockerfile: ./cache/Dockerfile
     container_name: "service_cache"
     restart: always
+    ports:
+      - "3004:3004"
     networks:
       - verretech_network
     depends_on:
@@ -62,13 +62,13 @@ services:
   db_cache_redis:
     deploy:
       replicas: 2
-      placement:
-        max_replicas_per_node: 1
     image: redis:6.2-alpine
     container_name: "db_cache_redis"
     restart: always
     networks:
       - verretech_network
+    ports:
+      - "6379:6379"
 networks:
   verretech_network: 
     external: 
